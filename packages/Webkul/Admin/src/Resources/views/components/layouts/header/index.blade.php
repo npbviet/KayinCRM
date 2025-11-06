@@ -108,14 +108,20 @@
                 @php($user = auth()->guard('user')->user())
 
                 @if ($user->image)
-                    <button class="flex h-9 w-9 cursor-pointer overflow-hidden rounded-full hover:opacity-80 focus:opacity-80">
+                    <button
+                        data-testid="user-avatar"
+                        class="flex h-9 w-9 cursor-pointer overflow-hidden rounded-full hover:opacity-80 focus:opacity-80"
+                    >
                         <img
                             src="{{ $user->image_url }}"
                             class="h-full w-full object-cover"
                         />
                     </button>
                 @else
-                    <button class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-pink-400 font-semibold leading-6 text-white">
+                    <button
+                        data-testid="user-avatar"
+                        class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-pink-400 font-semibold leading-6 text-white"
+                    >
                         {{ substr($user->name, 0, 1) }}
                     </button>
                 @endif
