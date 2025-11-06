@@ -42,7 +42,52 @@
             <!-- Mega Search Bar -->
             @include('admin::components.layouts.header.mobile.mega-search')
         </div>
-        
+
+        <!-- Language Switcher -->
+        <x-admin::dropdown position="bottom-right">
+            <x-slot:toggle>
+                <button class="flex items-center gap-1 cursor-pointer text-sm text-gray-700 dark:text-gray-300">
+                    <!-- Dynamic flag -->
+                    @php
+                        $locale = app()->getLocale();
+                        $flags = [
+                            'en' => 'https://flagicons.lipis.dev/flags/4x3/gb.svg',
+                            'vi' => 'https://flagicons.lipis.dev/flags/4x3/vn.svg',
+                            'es' => 'https://flagicons.lipis.dev/flags/4x3/es.svg',
+                        ];
+                    @endphp
+
+                    <img src="{{ $flags[$locale] ?? $flags['en'] }}" class="w-5 h-5" alt="{{ strtoupper($locale) }}">
+
+                    {{ strtoupper($locale) }}
+                </button>
+            </x-slot>
+
+            <x-slot:content class="mt-2 !p-2 bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100 rounded-md shadow"> 
+                <form action="{{ route('admin.set-locale') }}" method="POST" class="flex flex-col">
+                    @csrf
+
+                    <!-- English -->
+                    <button name="locale" value="en" class="flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition">
+                        <img src="https://flagicons.lipis.dev/flags/4x3/gb.svg" class="w-5 h-5" alt="English">
+                        English
+                    </button>
+
+                    <!-- Vietnamese -->
+                    <button name="locale" value="vi" class="flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition">
+                    <img src="https://flagicons.lipis.dev/flags/4x3/vn.svg" class="w-5 h-5" alt="Vietnam">
+                        Tiếng Việt
+                    </button>
+
+                    <!-- Spanish -->
+                    <button name="locale" value="es" class="flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition">
+                        <img src="https://flagicons.lipis.dev/flags/4x3/es.svg" class="w-5 h-5" alt="Spanish">
+                        Español
+                    </button>
+                </form>
+            </x-slot>
+        </x-admin::dropdown>
+
         <!-- Dark mode -->
         <v-dark>
             <div class="flex">
@@ -77,7 +122,7 @@
             </x-slot>
 
             <!-- Admin Dropdown -->
-            <x-slot:content class="mt-2 border-t-0 !p-0">
+            <x-slot:content class="mt-2 border-t-0 !p-0 ">
                 <div class="flex items-center gap-1.5 border border-x-0 border-b-gray-300 px-5 py-2.5 dark:border-gray-800">
                     <img
                         src="{{ url('cache/logo.png') }}"

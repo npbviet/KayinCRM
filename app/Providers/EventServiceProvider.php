@@ -18,6 +18,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            // Add your listeners (for each social provider)
+            'SocialiteProviders\\Microsoft\\MicrosoftExtendSocialite@handle',
+        ],
     ];
 
     /**
