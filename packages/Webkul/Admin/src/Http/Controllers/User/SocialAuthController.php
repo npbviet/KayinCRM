@@ -158,4 +158,3 @@ class SocialAuthController extends Controller
         return null;
     }
 }
-

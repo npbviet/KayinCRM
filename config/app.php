@@ -202,7 +202,7 @@ return [
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
         SocialiteProviders\Manager\ServiceProvider::class,
-        
+
         /*
          * Webkul Service Providers...
          */
