@@ -198,6 +198,12 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         /*
+         * Social Service
+         */
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        SocialiteProviders\Manager\ServiceProvider::class,
+        
+        /*
          * Webkul Service Providers...
          */
         Webkul\Activity\Providers\ActivityServiceProvider::class,

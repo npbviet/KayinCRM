@@ -30,10 +30,15 @@ class Locale
      */
     public function handle($request, Closure $next)
     {
-        app()->setLocale(
-            core()->getConfigData('general.general.locale_settings.locale')
-                ?: app()->getLocale()
-        );
+        if (session()->has('locale')) {
+            app()->setLocale(session('locale'));
+        } else {
+            // Nếu chưa có session locale thì dùng cấu hình mặc định của hệ thống
+            app()->setLocale(
+                core()->getConfigData('general.general.locale_settings.locale')
+                    ?: app()->getLocale()
+            );
+        }
 
         return $next($request);
     }

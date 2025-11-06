@@ -50,11 +50,15 @@ return [
         'login-error'      => 'Thông tin đăng nhập không khớp với hồ sơ của chúng tôi.',
         'not-permission'   => 'Bạn không có quyền truy cập vào bảng quản trị.',
         'login'            => [
-            'email'                => 'Địa chỉ Email',
-            'forget-password-link' => 'Quên Mật khẩu?',
-            'password'             => 'Mật khẩu',
-            'submit-btn'           => 'Đăng Nhập',
-            'title'                => 'Đăng Nhập',
+            'email'                     => 'Địa chỉ Email',
+            'forget-password-link'      => 'Quên Mật khẩu?',
+            'password'                  => 'Mật khẩu',
+            'submit-btn'                => 'Đăng Nhập',
+            'title'                     => 'Đăng Nhập',
+            'or-continue-with'          => 'Hoặc tiếp tục với',
+            'continue-with-google'      => 'Tiếp tục với Google',
+            'continue-with-microsoft'   => 'Tiếp tục với Microsoft',
+            'continue-with-github'      => 'Tiếp tục với Github',
         ],
         'forget-password' => [
             'create' => [

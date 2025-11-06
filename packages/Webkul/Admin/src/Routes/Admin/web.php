@@ -49,3 +49,8 @@ require 'configuration-routes.php';
  * Rest routes.
  */
 require 'rest-routes.php';
+
+/**
+ * Switch languages routes.
+ */
+require 'switch-languages-routes.php';
