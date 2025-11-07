@@ -33,3 +33,7 @@ node_modules/
 /test-results/
 /blob-report/
 /playwright/.cache/
+
+# Build assets
+/public/build/
+/public/*/build/
