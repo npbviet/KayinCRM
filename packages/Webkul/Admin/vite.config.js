@@ -21,6 +21,12 @@ export default defineConfig(({ mode }) => {
             cors: true,
         },
 
+        resolve: {
+            alias: {
+                "@": path.resolve(__dirname, "../../../resources"),
+            },
+        },
+
         plugins: [
             vue(),
 

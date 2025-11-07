@@ -115,6 +115,7 @@ return [
         'pt_BR' => 'Portuguese',
         'tr'    => 'Türkçe',
         'vi'    => 'Vietnamese',
+        'ja'    => '日本語',
     ],
 
     /*
