@@ -12,8 +12,8 @@ class TaskServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
-        $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'tasks');
+        $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
+        $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'tasks');
 
         Breadcrumbs::for('tasks', function ($trail) {
             $trail->push(trans('admin::app.tasks.index.title') ?? 'Tasks', route('admin.tasks.index'));

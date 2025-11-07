@@ -168,7 +168,7 @@ class TaskDataGrid extends DataGrid
 
                             // Search trong description
                             $innerQueryBuilder->orWhere('tasks.description', 'LIKE', '%'.$value.'%');
-                            
+
                             // Search trong owner name
                             $innerQueryBuilder->orWhere('users.name', 'LIKE', '%'.$value.'%');
 

@@ -6,7 +6,6 @@ use Illuminate\Container\Container;
 use Webkul\Attribute\Repositories\AttributeRepository;
 use Webkul\Attribute\Repositories\AttributeValueRepository;
 use Webkul\Core\Eloquent\Repository;
-use Webkul\Task\Contracts\Task as TaskContract;
 use Webkul\Task\Models\Task;
 
 class TaskRepository extends Repository

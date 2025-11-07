@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Webkul\Installer\Database\Seeders\DatabaseSeeder as KrayinDatabaseSeeder;
-use Database\Seeders\DemoDataSeeder;
 
 class DatabaseSeeder extends Seeder
 {

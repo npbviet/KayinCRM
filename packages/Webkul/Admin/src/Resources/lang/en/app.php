@@ -1731,12 +1731,12 @@ return [
 
     'tasks' => [
         'index' => [
-            'title'          => 'Tasks',
-            'create-btn'     => 'Create Task',
-            'create-success' => 'Task created successfully.',
-            'update-success' => 'Task updated successfully.',
-            'destroy-success' => 'Task deleted successfully.',
-            'destroy-failed'  => 'Task can not be deleted.',
+            'title'                => 'Tasks',
+            'create-btn'           => 'Create Task',
+            'create-success'       => 'Task created successfully.',
+            'update-success'       => 'Task updated successfully.',
+            'destroy-success'      => 'Task deleted successfully.',
+            'destroy-failed'       => 'Task can not be deleted.',
             'mass-destroy-success' => 'Tasks deleted successfully.',
 
             'search' => [
@@ -1757,21 +1757,21 @@ return [
         ],
 
         'create' => [
-            'title'      => 'Create Task',
-            'save-btn'   => 'Save Task',
+            'title'       => 'Create Task',
+            'save-btn'    => 'Save Task',
             'description' => 'Description',
-            'status'     => 'Status',
-            'priority'   => 'Priority',
-            'due-date'   => 'Due Date',
+            'status'      => 'Status',
+            'priority'    => 'Priority',
+            'due-date'    => 'Due Date',
         ],
 
         'edit' => [
-            'title'      => 'Edit Task',
-            'save-btn'   => 'Save Task',
+            'title'       => 'Edit Task',
+            'save-btn'    => 'Save Task',
             'description' => 'Description',
-            'status'     => 'Status',
-            'priority'   => 'Priority',
-            'due-date'   => 'Due Date',
+            'status'      => 'Status',
+            'priority'    => 'Priority',
+            'due-date'    => 'Due Date',
         ],
 
         'status' => [

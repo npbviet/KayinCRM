@@ -29,6 +29,7 @@ class DemoDataSeeder extends Seeder
         $userId = User::query()->value('id');
         if (! $userId) {
             $this->command?->warn('No users found; skipping demo seed. Run installer first.');
+
             return;
         }
 
@@ -38,6 +39,7 @@ class DemoDataSeeder extends Seeder
         $stage = $pipeline?->stages->first();
         if (! $pipeline || ! $stage) {
             $this->command?->warn('No pipeline/stage found; skipping demo seed.');
+
             return;
         }
 
@@ -90,7 +92,7 @@ class DemoDataSeeder extends Seeder
             $this->command?->info('Demo persons and leads seeded successfully.');
         } catch (\Throwable $e) {
             DB::rollBack();
-            $this->command?->error('Demo seeding failed: ' . $e->getMessage());
+            $this->command?->error('Demo seeding failed: '.$e->getMessage());
             throw $e;
         }
     }
