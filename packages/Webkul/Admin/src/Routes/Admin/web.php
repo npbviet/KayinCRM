@@ -54,3 +54,8 @@ require 'rest-routes.php';
  * Switch languages routes.
  */
 require 'switch-languages-routes.php';
+
+/**
+ * Tasks routes.
+ */
+require 'tasks-routes.php';
