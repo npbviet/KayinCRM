@@ -1,3 +1,5 @@
+@import "@/fonts/icomoon-new/style.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,16 +7,17 @@
 /* -------------------------------- new css -------------------------------- */
 
 @font-face {
-    font-family: 'icomoon';
-    src: url('../fonts/icomoon.woff?w2trdd') format('woff');
+    font-family: "icomoon";
+    src: url("../fonts/icomoon.woff?w2trdd") format("woff");
     font-weight: normal;
     font-style: normal;
     font-display: block;
-  }
+}
 
-  [class^="icon-"], [class*=" icon-"] {
+[class^="icon-"],
+[class*=" icon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'icomoon' !important;
+    font-family: "icomoon-new", "icomoon" !important;
     speak: never;
     font-style: normal;
     font-weight: normal;
@@ -25,13 +28,13 @@
     /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
+}
 
 @layer components {
     .icon-image:before {
         content: "\e956";
     }
-      
+
     .icon-bookmark:before {
         content: "\e92c";
     }
@@ -397,11 +400,11 @@
     }
 
     .dark .sidebar-rounded::after {
-        @apply bg-[url("../images/dark-corner-clip.svg")]
+        @apply bg-[url("../images/dark-corner-clip.svg")];
     }
 
     .dark .sidebar-rounded::before {
-        @apply bg-[url("../images/dark-corner-clip.svg")]
+        @apply bg-[url("../images/dark-corner-clip.svg")];
     }
 
     .tox.tox-silver-sink.tox-tinymce-aux {
@@ -409,7 +412,7 @@
     }
 
     .stage::after {
-        content: '';
+        content: "";
         position: absolute;
         top: 50%;
         right: -10px;
@@ -423,7 +426,7 @@
     }
 
     .dark .stage::after {
-        content: '';
+        content: "";
         position: absolute;
         top: 50%;
         right: -10px;
@@ -437,7 +440,7 @@
     }
 
     [dir="rtl"] .stage::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 50%;
         left: -10px;
@@ -455,7 +458,7 @@
     }
 
     .dark\:bg-gray-400:is(.dark *) {
-       --tw-bg-opacity: 1 !important;
+        --tw-bg-opacity: 1 !important;
         background-color: #1f2937 !important;
         border: #111827 solid !important;
         color: #e5e7eb !important;
@@ -536,7 +539,7 @@
     }
 
     ::selection {
-        background-color: rgba(0, 68, 242, .2);
+        background-color: rgba(0, 68, 242, 0.2);
     }
 
     body {
@@ -557,7 +560,7 @@
     }
 
     html.dark [class^="icon-"],
-    html.dark [class*=" icon-"]{
+    html.dark [class*=" icon-"] {
         color: #d1d5db;
     }
 
@@ -602,7 +605,7 @@
         background-position-y: 50%;
     }
 
-    .dark .custom-select{
+    .dark .custom-select {
         background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
     }
 
@@ -632,7 +635,7 @@
 .tox .tox-toolbar__group:last-child button {
     padding: 6px 8px;
     background: #eff6ff;
-    color: #2563EB;
+    color: #2563eb;
 }
 
 .tox .tox-toolbar__group:last-child button:hover {
