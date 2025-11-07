@@ -46,19 +46,19 @@
         <!-- Language Switcher -->
         <x-admin::dropdown position="bottom-right">
             <x-slot:toggle>
-                <button class="flex items-center gap-1 cursor-pointer text-sm text-gray-700 dark:text-gray-300">
+                <button class="flex items-center gap-3 cursor-pointer text-sm text-gray-700 dark:text-gray-300">
                     <!-- Dynamic flag -->
-                    @php
+                    <!-- @php
                         $locale = app()->getLocale();
                         $flags = [
                             'en' => 'https://flagicons.lipis.dev/flags/4x3/gb.svg',
                             'vi' => 'https://flagicons.lipis.dev/flags/4x3/vn.svg',
-                            'es' => 'https://flagicons.lipis.dev/flags/4x3/es.svg',
+                            'ja' => 'https://flagicons.lipis.dev/flags/4x3/jp.svg',
                         ];
                     @endphp
 
-                    <img src="{{ $flags[$locale] ?? $flags['en'] }}" class="w-5 h-5" alt="{{ strtoupper($locale) }}">
-
+                    <img src="{{ $flags[$locale] ?? $flags['en'] }}" class="w-5 h-5" alt="{{ strtoupper($locale) }}"> -->
+                    <i class="icon-tasks text-xl"></i>
                     {{ strtoupper($locale) }}
                 </button>
             </x-slot>
@@ -80,9 +80,9 @@
                     </button>
 
                     <!-- Spanish -->
-                    <button name="locale" value="es" class="flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition">
-                        <img src="https://flagicons.lipis.dev/flags/4x3/es.svg" class="w-5 h-5" alt="Spanish">
-                        Español
+                    <button name="locale" value="ja" class="flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition">
+                        <img src="https://flagicons.lipis.dev/flags/4x3/jp.svg" class="w-5 h-5" alt="Spanish">
+                        Tiếng nhật
                     </button>
                 </form>
             </x-slot>
@@ -108,14 +108,20 @@
                 @php($user = auth()->guard('user')->user())
 
                 @if ($user->image)
-                    <button class="flex h-9 w-9 cursor-pointer overflow-hidden rounded-full hover:opacity-80 focus:opacity-80">
+                    <button
+                        data-testid="user-avatar"
+                        class="flex h-9 w-9 cursor-pointer overflow-hidden rounded-full hover:opacity-80 focus:opacity-80"
+                    >
                         <img
                             src="{{ $user->image_url }}"
                             class="h-full w-full object-cover"
                         />
                     </button>
                 @else
-                    <button class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-pink-400 font-semibold leading-6 text-white">
+                    <button
+                        data-testid="user-avatar"
+                        class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-pink-400 font-semibold leading-6 text-white"
+                    >
                         {{ substr($user->name, 0, 1) }}
                     </button>
                 @endif
