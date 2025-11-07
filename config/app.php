@@ -226,6 +226,7 @@ return [
         Webkul\User\Providers\UserServiceProvider::class,
         Webkul\Warehouse\Providers\WarehouseServiceProvider::class,
         Webkul\WebForm\Providers\WebFormServiceProvider::class,
+        Webkul\Task\Providers\TaskServiceProvider::class,
     ])->toArray(),
 
     /*

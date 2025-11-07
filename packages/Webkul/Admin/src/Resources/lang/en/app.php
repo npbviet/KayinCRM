@@ -1729,6 +1729,67 @@ return [
         ],
     ],
 
+    'tasks' => [
+        'index' => [
+            'title'                => 'Tasks',
+            'create-btn'           => 'Create Task',
+            'create-success'       => 'Task created successfully.',
+            'update-success'       => 'Task updated successfully.',
+            'destroy-success'      => 'Task deleted successfully.',
+            'destroy-failed'       => 'Task can not be deleted.',
+            'mass-destroy-success' => 'Tasks deleted successfully.',
+
+            'search' => [
+                'placeholder' => 'Search by title, owner, or assigned user...',
+            ],
+
+            'datagrid' => [
+                'title'        => 'Title',
+                'status'       => 'Status',
+                'priority'     => 'Priority',
+                'owner'        => 'Owner',
+                'assigned-to'  => 'Assigned To',
+                'due-date'     => 'Due Date',
+                'created-at'   => 'Created At',
+                'edit'         => 'Edit',
+                'delete'       => 'Delete',
+            ],
+        ],
+
+        'create' => [
+            'title'       => 'Create Task',
+            'save-btn'    => 'Save Task',
+            'description' => 'Description',
+            'status'      => 'Status',
+            'priority'    => 'Priority',
+            'due-date'    => 'Due Date',
+        ],
+
+        'edit' => [
+            'title'       => 'Edit Task',
+            'save-btn'    => 'Save Task',
+            'description' => 'Description',
+            'status'      => 'Status',
+            'priority'    => 'Priority',
+            'due-date'    => 'Due Date',
+        ],
+
+        'status' => [
+            'pending'     => 'Pending',
+            'in_progress' => 'In Progress',
+            'completed'   => 'Completed',
+            'cancelled'   => 'Cancelled',
+        ],
+
+        'priority' => [
+            'none'   => 'None',
+            'low'    => 'Low',
+            'medium' => 'Medium',
+            'high'   => 'High',
+            'urgent' => 'Urgent',
+        ],
+    ],
+
     'activities' => [
         'index' => [
             'title'      => 'Activities',

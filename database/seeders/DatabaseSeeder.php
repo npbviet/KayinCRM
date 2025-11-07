@@ -15,5 +15,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(KrayinDatabaseSeeder::class);
+
+        // Seed demo/sample data (persons, leads)
+        $this->call(DemoDataSeeder::class);
     }
 }
