@@ -304,6 +304,6 @@ return [
         'name'       => 'admin::app.tasks.index.title',
         'route'      => 'admin.tasks.index',
         'sort'       => 10,
-        'icon-class' => 'icon-task',
+        'icon-class' => 'icon-file-openoffice',
     ],
 ];
