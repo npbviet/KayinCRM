@@ -48,7 +48,7 @@
             <x-slot:toggle>
                 <button class="flex items-center gap-3 cursor-pointer text-sm text-gray-700 dark:text-gray-300">
                     <!-- Dynamic flag -->
-                    <!-- @php
+                    @php
                         $locale = app()->getLocale();
                         $flags = [
                             'en' => 'https://flagicons.lipis.dev/flags/4x3/gb.svg',
@@ -57,8 +57,8 @@
                         ];
                     @endphp
 
-                    <img src="{{ $flags[$locale] ?? $flags['en'] }}" class="w-5 h-5" alt="{{ strtoupper($locale) }}"> -->
-                    <i class="icon-tasks text-xl"></i>
+                    <img src="{{ $flags[$locale] ?? $flags['en'] }}" class="w-5 h-5" alt="{{ strtoupper($locale) }}">
+                    <!-- <i class="icon-tasks text-xl"></i> -->
                     {{ strtoupper($locale) }}
                 </button>
             </x-slot>
