@@ -1591,7 +1591,7 @@ return [
             'destroy-success'      => 'Xóa công việc thành công.',
             'destroy-failed'       => 'Không thể xóa công việc.',
             'mass-destroy-success' => 'Đã xóa các công việc thành công.',
-            'search' => [
+            'search'               => [
                 'placeholder' => 'Tìm kiếm theo tiêu đề, người tạo hoặc người được giao...',
             ],
             'datagrid' => [
