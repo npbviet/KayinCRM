@@ -59,12 +59,12 @@ class TaskDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'             => 'status',
-            'label'             => trans('admin::app.tasks.index.datagrid.status'),
-            'type'              => 'string',
-            'sortable'          => true,
-            'filterable'        => true,
-            'filterable_type'   => 'dropdown',
+            'index'              => 'status',
+            'label'              => trans('admin::app.tasks.index.datagrid.status'),
+            'type'               => 'string',
+            'sortable'           => true,
+            'filterable'         => true,
+            'filterable_type'    => 'dropdown',
             'filterable_options' => [
                 [
                     'label' => trans('admin::app.tasks.status.pending'),
@@ -86,12 +86,12 @@ class TaskDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'             => 'priority',
-            'label'             => trans('admin::app.tasks.index.datagrid.priority'),
-            'type'              => 'string',
-            'sortable'          => true,
-            'filterable'        => true,
-            'filterable_type'   => 'dropdown',
+            'index'              => 'priority',
+            'label'              => trans('admin::app.tasks.index.datagrid.priority'),
+            'type'               => 'string',
+            'sortable'           => true,
+            'filterable'         => true,
+            'filterable_type'    => 'dropdown',
             'filterable_options' => [
                 [
                     'label' => trans('admin::app.tasks.priority.none'),
@@ -230,7 +230,7 @@ class TaskDataGrid extends DataGrid
             // --- Custom search for "all" ---
             if ($requestedColumn === 'all') {
                 $this->queryBuilder->where(function ($scopeQueryBuilder) use ($requestedValues) {
-                    foreach ((array)$requestedValues as $value) {
+                    foreach ((array) $requestedValues as $value) {
                         $scopeQueryBuilder->where(function ($innerQueryBuilder) use ($value) {
                             $innerQueryBuilder
                                 ->orWhere('tasks.title', 'LIKE', "%{$value}%")
@@ -240,11 +240,12 @@ class TaskDataGrid extends DataGrid
                         });
                     }
                 });
+
                 continue;
             }
 
             $column = collect($this->columns)
-                ->first(fn($col) => $col->getIndex() === $requestedColumn);
+                ->first(fn ($col) => $col->getIndex() === $requestedColumn);
 
             if (! $column) {
                 continue;
@@ -254,12 +255,13 @@ class TaskDataGrid extends DataGrid
             if ($column->getType() === 'date') {
                 if (is_string($requestedValues)) {
                     $this->queryBuilder->whereDate($column->getColumnName(), '=', $requestedValues);
+
                     continue;
                 }
 
                 if (is_array($requestedValues)) {
                     $from = $requestedValues['from'] ?? null;
-                    $to   = $requestedValues['to'] ?? null;
+                    $to = $requestedValues['to'] ?? null;
 
                     $this->queryBuilder->where(function ($query) use ($column, $from, $to) {
                         if ($from && $to) {
@@ -270,12 +272,13 @@ class TaskDataGrid extends DataGrid
                             $query->whereDate($column->getColumnName(), '<=', $to);
                         }
                     });
+
                     continue;
                 }
             }
 
             // --- Default filter processing ---
-            $column->processFilter($this->queryBuilder, (array)$requestedValues);
+            $column->processFilter($this->queryBuilder, (array) $requestedValues);
         }
 
         return $this->queryBuilder;
