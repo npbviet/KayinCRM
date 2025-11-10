@@ -1591,7 +1591,7 @@ return [
             'destroy-success'      => 'タスクが正常に削除されました。',
             'destroy-failed'       => 'タスクを削除できませんでした。',
             'mass-destroy-success' => 'タスクが正常に一括削除されました。',
-            'search' => [
+            'search'               => [
                 'placeholder' => 'タイトル、作成者、または担当者で検索...',
             ],
             'datagrid' => [

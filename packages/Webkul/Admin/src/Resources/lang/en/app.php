@@ -49,7 +49,7 @@ return [
         'activate-warning' => 'Your account is not activated yet. Please contact the administrator.',
         'login-error'      => 'The credentials do not match our records.',
         'not-permission'   => 'You do not have permission to access the admin panel.',
-        'login' => [
+        'login'            => [
             'email'                     => 'Email Address',
             'forget-password-link'      => 'Forget Password ?',
             'password'                  => 'Password',
@@ -139,7 +139,7 @@ return [
                     'meeting'       => 'Meeting',
                     'lunch'         => 'Lunch',
                     'save-btn'      => 'Save Activity',
-                    'participants' => [
+                    'participants'  => [
                         'title'       => 'Participants',
                         'placeholder' => 'Type to search participants',
                         'users'       => 'Users',
@@ -149,31 +149,31 @@ return [
                 ],
             ],
             'index' => [
-                'all'          => 'All',
-                'bcc'          => 'Bcc',
-                'by-user'      => 'By :user',
-                'calls'        => 'Calls',
-                'cc'           => 'Cc',
-                'change-log'   => 'Changelogs',
-                'delete'       => 'Delete',
-                'edit'         => 'Edit',
-                'emails'       => 'Emails',
-                'empty'        => 'Empty',
-                'files'        => 'Files',
-                'from'         => 'From',
-                'location'     => 'Location',
-                'lunches'      => 'Lunches',
-                'mark-as-done' => 'Mark as Done',
-                'meetings'     => 'Meetings',
-                'notes'        => 'Notes',
-                'participants' => 'Participants',
-                'planned'      => 'Planned',
-                'quotes'       => 'Quotes',
-                'scheduled-on' => 'Scheduled on',
-                'system'       => 'System',
-                'to'           => 'To',
-                'unlink'       => 'Unlink',
-                'view'         => 'View',
+                'all'                => 'All',
+                'bcc'                => 'Bcc',
+                'by-user'            => 'By :user',
+                'calls'              => 'Calls',
+                'cc'                 => 'Cc',
+                'change-log'         => 'Changelogs',
+                'delete'             => 'Delete',
+                'edit'               => 'Edit',
+                'emails'             => 'Emails',
+                'empty'              => 'Empty',
+                'files'              => 'Files',
+                'from'               => 'From',
+                'location'           => 'Location',
+                'lunches'            => 'Lunches',
+                'mark-as-done'       => 'Mark as Done',
+                'meetings'           => 'Meetings',
+                'notes'              => 'Notes',
+                'participants'       => 'Participants',
+                'planned'            => 'Planned',
+                'quotes'             => 'Quotes',
+                'scheduled-on'       => 'Scheduled on',
+                'system'             => 'System',
+                'to'                 => 'To',
+                'unlink'             => 'Unlink',
+                'view'               => 'View',
                 'empty-placeholders' => [
                     'all' => [
                         'title'       => 'No Activities Found',
@@ -220,7 +220,7 @@ return [
                 'ai-add-image-btn'  => 'Magic AI',
                 'allowed-types'     => 'png, jpeg, jpg',
                 'not-allowed-error' => 'Only images files (.jpeg, .jpg, .png, ..) are allowed.',
-                'placeholders' => [
+                'placeholders'      => [
                     'front'     => 'Front',
                     'next'      => 'Next',
                     'size'      => 'Size',
@@ -241,12 +241,12 @@ return [
                 'must-select-a-mass-action'        => 'You must select a mass action.',
             ],
             'toolbar' => [
-                'length-of' => ':length of',
-                'of'        => 'of',
-                'per-page'  => 'Per Page',
-                'results'   => ':total Results',
-                'delete'    => 'Delete',
-                'selected'  => ':total Items Selected',
+                'length-of'    => ':length of',
+                'of'           => 'of',
+                'per-page'     => 'Per Page',
+                'results'      => ':total Results',
+                'delete'       => 'Delete',
+                'selected'     => ':total Items Selected',
                 'mass-actions' => [
                     'submit'        => 'Submit',
                     'select-option' => 'Select Option',
@@ -277,8 +277,8 @@ return [
                 ],
             ],
             'filters' => [
-                'select' => 'Select',
-                'title'  => 'Filters',
+                'select'   => 'Select',
+                'title'    => 'Filters',
                 'dropdown' => [
                     'searchable' => [
                         'at-least-two-chars' => 'Type at least 2 characters...',
@@ -339,7 +339,7 @@ return [
             'header' => [
                 'mega-search' => [
                     'title'   => 'Mega Search',
-                    'tabs' => [
+                    'tabs'    => [
                         'leads'    => 'Leads',
                         'quotes'   => 'Quotes',
                         'persons'  => 'Persons',
@@ -392,7 +392,7 @@ return [
             'update-success' => 'Quote updated successfully.',
             'delete-success' => 'Quote deleted successfully.',
             'delete-failed'  => 'Quote can not be deleted.',
-            'datagrid' => [
+            'datagrid'       => [
                 'subject'        => 'Subject',
                 'sales-person'   => 'Sales Person',
                 'expired-at'     => 'Expired At',
@@ -502,7 +502,7 @@ return [
                 'none-delete-warning'      => 'None of the selected persons could be deleted because they are linked to leads.',
                 'no-selection'             => 'No persons were selected for deletion.',
                 'delete-failed'            => 'Failed to delete selected persons.',
-                'datagrid' => [
+                'datagrid'                 => [
                     'contact-numbers'   => 'Contact Numbers',
                     'delete'            => 'Delete',
                     'edit'              => 'Edit',
@@ -517,7 +517,7 @@ return [
                 'title'              => ':name',
                 'about-person'       => 'About Person',
                 'about-organization' => 'About Organization',
-                'activities' => [
+                'activities'         => [
                     'index' => [
                         'all'          => 'All',
                         'calls'        => 'Calls',
@@ -598,7 +598,7 @@ return [
                 'update-success' => 'Organization updated successfully.',
                 'delete-success' => 'Organization deleted successfully.',
                 'delete-failed'  => 'Organization can not be deleted.',
-                'datagrid' => [
+                'datagrid'       => [
                     'delete'        => 'Delete',
                     'edit'          => 'Edit',
                     'id'            => 'ID',
@@ -624,7 +624,7 @@ return [
             'update-success' => 'Product updated successfully.',
             'delete-success' => 'Product deleted successfully.',
             'delete-failed'  => 'Product can not be deleted.',
-            'datagrid'   => [
+            'datagrid'       => [
                 'allocated' => 'Allocated',
                 'delete'    => 'Delete',
                 'edit'      => 'Edit',
@@ -657,7 +657,7 @@ return [
             'files'       => 'Files',
             'inventories' => 'Inventory',
             'change-logs' => 'Changelogs',
-            'attributes' => [
+            'attributes'  => [
                 'about-product' => 'About Product',
             ],
             'inventory' => [
@@ -675,7 +675,7 @@ return [
         ],
     ],
     'settings' => [
-        'title' => 'Settings',
+        'title'  => 'Settings',
         'groups' => [
             'index' => [
                 'create-btn'                     => 'Create Group',
@@ -685,7 +685,7 @@ return [
                 'destroy-success'                => 'Group deleted successfully.',
                 'delete-failed'                  => 'Group can not be deleted.',
                 'delete-failed-associated-users' => 'Group can not be deleted, as this is being used by users.',
-                'datagrid'   => [
+                'datagrid'                       => [
                     'delete'      => 'Delete',
                     'description' => 'Description',
                     'edit'        => 'Edit',
@@ -716,7 +716,7 @@ return [
                 'title'                     => 'Roles',
                 'update-success'            => 'Role updated successfully.',
                 'user-define-error'         => 'Can not delete system role.',
-                'datagrid'   => [
+                'datagrid'                  => [
                     'all'             => 'All',
                     'custom'          => 'Custom',
                     'delete'          => 'Delete',
@@ -760,7 +760,7 @@ return [
                 'delete-success' => 'Type deleted successfully.',
                 'title'          => 'Types',
                 'update-success' => 'Type updated successfully.',
-                'datagrid' => [
+                'datagrid'       => [
                     'delete'      => 'Delete',
                     'description' => 'Description',
                     'edit'        => 'Edit',
@@ -786,7 +786,7 @@ return [
                 'delete-success'                 => 'Source deleted successfully.',
                 'update-success'                 => 'Source updated successfully.',
                 'delete-failed-associated-leads' => 'Source cannot be deleted because it is associated with existing leads. Please detach or update those leads before deletion.',
-                'datagrid' => [
+                'datagrid'                       => [
                     'delete' => 'Delete',
                     'edit'   => 'Edit',
                     'id'     => 'ID',
@@ -985,7 +985,7 @@ return [
                 'update-success' => 'Email Template updated successfully.',
                 'delete-success' => 'Email Template deleted successfully.',
                 'delete-failed'  => 'Email Template can not be deleted.',
-                'datagrid'   => [
+                'datagrid'       => [
                     'delete'       => 'Delete',
                     'edit'         => 'Edit',
                     'id'           => 'ID',
@@ -1024,7 +1024,7 @@ return [
                     'delete-success'      => 'Event deleted successfully.',
                     'delete-failed'       => 'Event can not be deleted.',
                     'mass-delete-success' => 'Events deleted successfully',
-                    'datagrid'   => [
+                    'datagrid'            => [
                         'delete'       => 'Delete',
                         'edit'         => 'Edit',
                         'id'           => 'ID',
@@ -1053,7 +1053,7 @@ return [
                     'delete-success'      => 'Campaign deleted successfully.',
                     'delete-failed'       => 'Campaign can not be deleted.',
                     'mass-delete-success' => 'Campaigns deleted successfully.',
-                    'datagrid'   => [
+                    'datagrid'            => [
                         'id'       => 'ID',
                         'name'     => 'Name',
                         'subject'  => 'Subject',
@@ -1086,7 +1086,7 @@ return [
                 'update-success' => 'Tag updated successfully.',
                 'delete-success' => 'Tag deleted successfully.',
                 'delete-failed'  => 'Tag can not be deleted.',
-                'datagrid' => [
+                'datagrid'       => [
                     'delete'      => 'Delete',
                     'edit'        => 'Edit',
                     'id'          => 'ID',
@@ -1121,7 +1121,7 @@ return [
                 'user-define-error'   => 'Can not delete system user.',
                 'active'              => 'Active',
                 'inactive'            => 'Inactive',
-                'datagrid' => [
+                'datagrid'            => [
                     'active'        => 'Active',
                     'created-at'    => 'Created At',
                     'delete'        => 'Delete',
@@ -1166,7 +1166,7 @@ return [
                 'delete-success'       => 'Pipeline deleted successfully.',
                 'delete-failed'        => 'Pipeline can not be deleted.',
                 'default-delete-error' => 'Default pipeline can not be deleted.',
-                'datagrid' => [
+                'datagrid'             => [
                     'delete'      => 'Delete',
                     'edit'        => 'Edit',
                     'id'          => 'ID',
@@ -1225,7 +1225,7 @@ return [
                 'update-success' => 'Webhook updated successfully.',
                 'delete-success' => 'Webhook deleted successfully.',
                 'delete-failed'  => 'Webhook can not be deleted.',
-                'datagrid' => [
+                'datagrid'       => [
                     'id'          => 'ID',
                     'delete'      => 'Delete',
                     'edit'        => 'Edit',
@@ -1301,7 +1301,7 @@ return [
                 'update-success' => 'Warehouse updated successfully.',
                 'delete-success' => 'Warehouse deleted successfully.',
                 'delete-failed'  => 'Warehouse can not be deleted.',
-                'datagrid' => [
+                'datagrid'       => [
                     'id'              => 'ID',
                     'name'            => 'Name',
                     'contact-name'    => 'Contact Name',
@@ -1330,7 +1330,7 @@ return [
                 'files'       => 'Files',
                 'location'    => 'Location',
                 'change-logs' => 'Changelogs',
-                'locations' => [
+                'locations'   => [
                     'action'         => 'Action',
                     'add-location'   => 'Add Location',
                     'create-success' => 'Location created successfully.',
@@ -1358,17 +1358,17 @@ return [
                 'delete-failed'      => 'Attribute can not be deleted.',
                 'user-define-error'  => 'Can not delete system attribute.',
                 'mass-delete-failed' => 'System attributes can not be deleted.',
-                'datagrid' => [
-                    'yes'         => 'Yes',
-                    'no'          => 'No',
-                    'id'          => 'ID',
-                    'code'        => 'Code',
-                    'name'        => 'Name',
-                    'entity-type' => 'Entity Type',
-                    'type'        => 'Type',
-                    'is-default'  => 'Is Default',
-                    'edit'        => 'Edit',
-                    'delete'      => 'Delete',
+                'datagrid'           => [
+                    'yes'          => 'Yes',
+                    'no'           => 'No',
+                    'id'           => 'ID',
+                    'code'         => 'Code',
+                    'name'         => 'Name',
+                    'entity-type'  => 'Entity Type',
+                    'type'         => 'Type',
+                    'is-default'   => 'Is Default',
+                    'edit'         => 'Edit',
+                    'delete'       => 'Delete',
                     'entity-types' => [
                         'leads'         => 'Leads',
                         'organizations' => 'Organizations',
@@ -1531,7 +1531,7 @@ return [
                 'index' => [
                     'button-title' => 'Create Import',
                     'title'        => 'Imports',
-                    'datagrid' => [
+                    'datagrid'     => [
                         'actions'       => 'Actions',
                         'completed-at'  => 'Completed At',
                         'created'       => 'Created',
@@ -1591,7 +1591,7 @@ return [
             'destroy-success'      => 'Task deleted successfully.',
             'destroy-failed'       => 'Task can not be deleted.',
             'mass-destroy-success' => 'Tasks deleted successfully.',
-            'search' => [
+            'search'               => [
                 'placeholder' => 'Search by title, owner, or assigned user...',
             ],
             'datagrid' => [
@@ -1639,7 +1639,7 @@ return [
     'activities' => [
         'index' => [
             'title'      => 'Activities',
-            'datagrid' => [
+            'datagrid'   => [
                 'comment'       => 'Comment',
                 'created_at'    => 'Created At',
                 'created_by'    => 'Created By',
@@ -1736,7 +1736,7 @@ return [
         'mass-update-success' => 'Emails updated successfully.',
         'delete-success'      => 'Email deleted successfully.',
         'delete-failed'       => 'Email can not be deleted.',
-        'view' => [
+        'view'                => [
             'title'                      => 'Mails',
             'subject'                    => ':subject',
             'link-mail'                  => 'Link Mail',
@@ -1770,7 +1770,7 @@ return [
             'lead-details'               => 'Lead Details',
             'contact-person'             => 'Contact Person',
             'product'                    => 'Product',
-            'tags' => [
+            'tags'                       => [
                 'create-success'  => 'Tag created successfully.',
                 'destroy-success' => 'Tag deleted successfully.',
             ],
@@ -1802,7 +1802,7 @@ return [
         'update-failed'     => 'Leads can not be deleted.',
         'destroy-success'   => 'Lead deleted successfully.',
         'destroy-failed'    => 'Lead can not be deleted.',
-        'file' => [
+        'file'              => [
             'data-not-found'         => 'Data not found.',
             'empty-content'          => 'PDF content is empty or could not be extracted.',
             'failed-extract'         => 'Failed to extract text from file.',
@@ -1818,7 +1818,7 @@ return [
         'index' => [
             'title'      => 'Leads',
             'create-btn' => 'Create Lead',
-            'datagrid' => [
+            'datagrid'   => [
                 'id'                  => 'ID',
                 'sales-person'        => 'Sales Person',
                 'subject'             => 'Subject',
@@ -1842,7 +1842,7 @@ return [
                 'empty-list'             => 'Your Leads List is Empty',
                 'empty-list-description' => 'Create a lead to organize your goals.',
                 'create-lead-btn'        => 'Create Lead',
-                'columns' => [
+                'columns'                => [
                     'contact-person'      => 'Contact Person',
                     'id'                  => 'ID',
                     'lead-type'           => 'Lead Type',
@@ -1987,7 +1987,7 @@ return [
             'select-country' => 'Select Country',
             'select-state'   => 'Select State',
             'title'          => 'Configuration',
-            'general'  => [
+            'general'        => [
                 'title'   => 'General',
                 'info'    => 'General Configuration',
                 'general' => [
@@ -2004,8 +2004,8 @@ return [
                     ],
                 ],
                 'settings' => [
-                    'title' => 'Settings',
-                    'info'  => 'Update your settings here.',
+                    'title'  => 'Settings',
+                    'info'   => 'Update your settings here.',
                     'footer' => [
                         'info'       => 'We can configure the powered by section here.',
                         'powered-by' => 'Powered by text editor',
@@ -2041,9 +2041,9 @@ return [
             'email' => [
                 'title' => 'Email Settings',
                 'info'  => 'Email configuration for the application.',
-                'imap' => [
-                    'title' => 'IMAP Settings',
-                    'info'  => 'IMAP email configuration for receiving emails.',
+                'imap'  => [
+                    'title'   => 'IMAP Settings',
+                    'info'    => 'IMAP email configuration for receiving emails.',
                     'account' => [
                         'title'         => 'IMAP Account',
                         'title-info'    => 'Configure your IMAP account settings here.',
@@ -2057,8 +2057,8 @@ return [
                 ],
             ],
             'magic-ai' => [
-                'title' => 'Magic AI',
-                'info'  => 'Magic AI configuration for the application.',
+                'title'    => 'Magic AI',
+                'info'     => 'Magic AI configuration for the application.',
                 'settings' => [
                     'api-key'             => 'API Key',
                     'api-key-info'        => 'Remember to use a OpenRouter API key for each model. It\'s a simple step to enhance security and performance.',
@@ -2069,7 +2069,7 @@ return [
                     'doc-generation'      => 'DOC Generation',
                     'doc-generation-info' => 'Enable the DOC Generation feature to automatically extract data from DOC files and convert them into text format. Enhance your productivity and efficiency by enabling this feature to streamline your workflow.',
                     'title'               => 'General Settings',
-                    'models'     => [
+                    'models'              => [
                         'deepseek-r1'           => 'Deepseek R1 Distill-llama-8b',
                         'gemini-2-0-flash-001'  => 'Gemini 2.0 flash-001',
                         'gpt-4o'                => 'GPT-4.0',
@@ -2084,7 +2084,7 @@ return [
     ],
     'dashboard' => [
         'index' => [
-            'title' => 'Dashboard',
+            'title'   => 'Dashboard',
             'revenue' => [
                 'lost-revenue' => 'Lost Revenue',
                 'won-revenue'  => 'Won Revenue',
@@ -2228,9 +2228,9 @@ return [
             'dear'   => 'Dear :name',
             'cheers' => 'Cheers,</br>Team :app_name',
             'user'   => [
-                'dear'           => 'Dear :username',
-                'create-subject' => 'You are added as a member.',
-                'create-body'    => 'Congratulations! You are now a member of our team.',
+                'dear'            => 'Dear :username',
+                'create-subject'  => 'You are added as a member.',
+                'create-body'     => 'Congratulations! You are now a member of our team.',
                 'forget-password' => [
                     'subject'           => 'Customer Reset Password',
                     'dear'              => 'Dear :username',
@@ -2251,7 +2251,7 @@ return [
         'dashboard' => 'Dashboard',
         'go-back'   => 'Go Back',
         'support'   => 'If the problem persists, reach out to us at <a href=":link" class=":class">:email</a> for assistance.',
-        '404' => [
+        '404'       => [
             'description' => 'Oops! The page you\'re looking for is on vacation. It seems we couldn\'t find what you were searching for.',
             'title'       => '404 Page Not Found',
         ],
