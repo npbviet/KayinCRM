@@ -82,7 +82,7 @@ class TaskController extends Controller
      */
     public function edit(int $id): View
     {
-        $task = $this->taskRepository->findOrFail($id);
+        $task = $this->taskRepository->with('assignedUser')->findOrFail($id);
 
         return view('admin::tasks.edit', compact('task'));
     }

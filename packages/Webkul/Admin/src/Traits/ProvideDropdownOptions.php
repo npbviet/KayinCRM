@@ -110,7 +110,7 @@ trait ProvideDropdownOptions
 
         return [
             [
-                'label'    => __('admin::app.common.select-users'),
+                'label'    => __('admin::app.common.custom-attributes.select-users'),
                 'value'    => '',
                 'disabled' => true,
                 'selected' => true,
@@ -137,7 +137,7 @@ trait ProvideDropdownOptions
 
         return [
             [
-                'label'    => __('admin::app.common.select-users'),
+                'label'    => __('admin::app.common.custom-attributes.select-users'),
                 'value'    => '',
                 'disabled' => true,
                 'selected' => true,

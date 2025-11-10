@@ -39,6 +39,8 @@ class TaskDataGrid extends DataGrid
         $this->addFilter('priority', 'tasks.priority');
         $this->addFilter('due_date', 'tasks.due_date');
         $this->addFilter('created_at', 'tasks.created_at');
+        $this->addFilter('owner_name', 'users.name');
+        $this->addFilter('assigned_user_name', 'assigned_users.name');
 
         return $queryBuilder;
     }
@@ -57,35 +59,77 @@ class TaskDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'      => 'status',
-            'label'      => trans('admin::app.tasks.index.datagrid.status'),
-            'type'       => 'string',
-            'sortable'   => true,
-            'filterable' => true,
+            'index'              => 'status',
+            'label'              => trans('admin::app.tasks.index.datagrid.status'),
+            'type'               => 'string',
+            'sortable'           => true,
+            'filterable'         => true,
+            'filterable_type'    => 'dropdown',
+            'filterable_options' => [
+                [
+                    'label' => trans('admin::app.tasks.status.pending'),
+                    'value' => 'pending',
+                ],
+                [
+                    'label' => trans('admin::app.tasks.status.in_progress'),
+                    'value' => 'in_progress',
+                ],
+                [
+                    'label' => trans('admin::app.tasks.status.completed'),
+                    'value' => 'completed',
+                ],
+                [
+                    'label' => trans('admin::app.tasks.status.cancelled'),
+                    'value' => 'cancelled',
+                ],
+            ],
         ]);
 
         $this->addColumn([
-            'index'      => 'priority',
-            'label'      => trans('admin::app.tasks.index.datagrid.priority'),
-            'type'       => 'string',
-            'sortable'   => true,
-            'filterable' => true,
+            'index'              => 'priority',
+            'label'              => trans('admin::app.tasks.index.datagrid.priority'),
+            'type'               => 'string',
+            'sortable'           => true,
+            'filterable'         => true,
+            'filterable_type'    => 'dropdown',
+            'filterable_options' => [
+                [
+                    'label' => trans('admin::app.tasks.priority.none'),
+                    'value' => '',
+                ],
+                [
+                    'label' => trans('admin::app.tasks.priority.low'),
+                    'value' => 'low',
+                ],
+                [
+                    'label' => trans('admin::app.tasks.priority.medium'),
+                    'value' => 'medium',
+                ],
+                [
+                    'label' => trans('admin::app.tasks.priority.high'),
+                    'value' => 'high',
+                ],
+                [
+                    'label' => trans('admin::app.tasks.priority.urgent'),
+                    'value' => 'urgent',
+                ],
+            ],
         ]);
 
         $this->addColumn([
-            'index'      => 'owner_name',
-            'label'      => trans('admin::app.tasks.index.datagrid.owner'),
-            'type'       => 'string',
-            'sortable'   => true,
-            'filterable' => true,
-        ]);
-
-        $this->addColumn([
-            'index'      => 'assigned_user_name',
-            'label'      => trans('admin::app.tasks.index.datagrid.assigned-to'),
-            'type'       => 'string',
-            'sortable'   => true,
-            'filterable' => true,
+            'index'              => 'owner_name',
+            'label'              => trans('admin::app.tasks.index.datagrid.owner'),
+            'type'               => 'string',
+            'sortable'           => true,
+            'filterable'         => true,
+            'filterable_type'    => 'searchable_dropdown',
+            'filterable_options' => [
+                'repository' => \Webkul\User\Repositories\UserRepository::class,
+                'column'     => [
+                    'label' => 'name',
+                    'value' => 'name',
+                ],
+            ],
         ]);
 
         $this->addColumn([
@@ -106,6 +150,22 @@ class TaskDataGrid extends DataGrid
             'sortable'   => true,
             'filterable' => true,
             'closure'    => fn ($row) => core()->formatDate($row->created_at),
+        ]);
+
+        $this->addColumn([
+            'index'              => 'assigned_user_name',
+            'label'              => trans('admin::app.tasks.index.datagrid.assigned-to'),
+            'type'               => 'string',
+            'sortable'           => true,
+            'filterable'         => true,
+            'filterable_type'    => 'searchable_dropdown',
+            'filterable_options' => [
+                'repository' => \Webkul\User\Repositories\UserRepository::class,
+                'column'     => [
+                    'label' => 'name',
+                    'value' => 'name',
+                ],
+            ],
         ]);
     }
 
@@ -157,33 +217,68 @@ class TaskDataGrid extends DataGrid
      */
     protected function processRequestedFilters(array $requestedFilters)
     {
-        foreach ($requestedFilters as $requestedColumn => $requestedValues) {
+        // Hợp nhất filters nằm trong 'columns' (nếu có)
+        $columnsFilters = $requestedFilters['columns'] ?? [];
+        $filters = array_merge($requestedFilters, $columnsFilters);
+
+        foreach ($filters as $requestedColumn => $requestedValues) {
+            // Skip nếu là 'columns' (tránh lặp)
+            if ($requestedColumn === 'columns') {
+                continue;
+            }
+
+            // --- Custom search for "all" ---
             if ($requestedColumn === 'all') {
-                // Custom search: chỉ search trong các trường cụ thể
                 $this->queryBuilder->where(function ($scopeQueryBuilder) use ($requestedValues) {
-                    foreach ($requestedValues as $value) {
+                    foreach ((array) $requestedValues as $value) {
                         $scopeQueryBuilder->where(function ($innerQueryBuilder) use ($value) {
-                            // Search trong title
-                            $innerQueryBuilder->orWhere('tasks.title', 'LIKE', '%'.$value.'%');
-
-                            // Search trong description
-                            $innerQueryBuilder->orWhere('tasks.description', 'LIKE', '%'.$value.'%');
-
-                            // Search trong owner name
-                            $innerQueryBuilder->orWhere('users.name', 'LIKE', '%'.$value.'%');
-
-                            // Search trong assigned user name
-                            $innerQueryBuilder->orWhere('assigned_users.name', 'LIKE', '%'.$value.'%');
-
+                            $innerQueryBuilder
+                                ->orWhere('tasks.title', 'LIKE', "%{$value}%")
+                                ->orWhere('tasks.description', 'LIKE', "%{$value}%")
+                                ->orWhere('users.name', 'LIKE', "%{$value}%")
+                                ->orWhere('assigned_users.name', 'LIKE', "%{$value}%");
                         });
                     }
                 });
-            } else {
-                // Xử lý filter cho các column cụ thể (giữ nguyên logic mặc định)
-                collect($this->columns)
-                    ->first(fn ($column) => $column->getIndex() === $requestedColumn)
-                    ->processFilter($this->queryBuilder, $requestedValues);
+
+                continue;
             }
+
+            $column = collect($this->columns)
+                ->first(fn ($col) => $col->getIndex() === $requestedColumn);
+
+            if (! $column) {
+                continue;
+            }
+
+            // --- Handle DATE (single or range) ---
+            if ($column->getType() === 'date') {
+                if (is_string($requestedValues)) {
+                    $this->queryBuilder->whereDate($column->getColumnName(), '=', $requestedValues);
+
+                    continue;
+                }
+
+                if (is_array($requestedValues)) {
+                    $from = $requestedValues['from'] ?? null;
+                    $to = $requestedValues['to'] ?? null;
+
+                    $this->queryBuilder->where(function ($query) use ($column, $from, $to) {
+                        if ($from && $to) {
+                            $query->whereBetween($column->getColumnName(), [$from, $to]);
+                        } elseif ($from) {
+                            $query->whereDate($column->getColumnName(), '>=', $from);
+                        } elseif ($to) {
+                            $query->whereDate($column->getColumnName(), '<=', $to);
+                        }
+                    });
+
+                    continue;
+                }
+            }
+
+            // --- Default filter processing ---
+            $column->processFilter($this->queryBuilder, (array) $requestedValues);
         }
 
         return $this->queryBuilder;

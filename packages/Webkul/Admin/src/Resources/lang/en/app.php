@@ -1794,6 +1794,7 @@ return [
             'update-contact-title' => 'Update Contact Numbers',
             'update-emails-title'  => 'Update Contact Emails',
             'work'                 => 'Work',
+            'select-users'         => 'Select user',
         ],
     ],
     'leads' => [

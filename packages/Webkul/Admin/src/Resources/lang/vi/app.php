@@ -1794,6 +1794,7 @@ return [
             'update-contact-title' => 'Cập Nhật Số Liên Lạc',
             'update-emails-title'  => 'Cập Nhật Email Liên Hệ',
             'work'                 => 'Công Việc',
+            'select-users'         => 'Chọn người dùng',
         ],
     ],
     'leads' => [
