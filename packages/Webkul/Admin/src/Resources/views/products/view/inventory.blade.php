@@ -108,7 +108,7 @@
                 <div v-if="notAddedWarehouses.length">
                     <x-admin::dropdown
                         position="bottom-right"
-                        class="!static"
+                        class="relative"
                     >
                         <x-slot:toggle>
                             <button
@@ -121,7 +121,7 @@
                             </button>
                         </x-slot>
 
-                        <x-slot:menu class="!top-[30px] max-h-[200px] overflow-auto">
+                        <x-slot:menu class="!top-[30px] w-full max-h-[200px] overflow-auto">
                             {!! view_render_event('admin.products.view.inventory.source.menu.item.before', ['product' => $product]) !!}
 
                             <x-admin::dropdown.menu.item
@@ -156,7 +156,7 @@
                     <!-- Edit Drawer -->
                     <x-admin::drawer
                         ref="assignLocationDrawer"
-                        width="500px"
+                        width="635px"
                         class="text-left"
                     >
                         <!-- Drawer Header -->
@@ -170,7 +170,7 @@
 
                                 <button
                                     type="submit"
-                                    class="primary-button ltr:mr-11 rtl:ml-11"
+                                    class="primary-button ltr:ml-11 rtl:mr-11"
                                 >
                                      @lang('admin::app.products.view.inventory.save')
                                 </button>
@@ -180,7 +180,7 @@
                         </x-slot>
 
                         <!-- Drawer Content -->
-                        <x-slot:content>
+                        <x-slot:content >
                             {!! view_render_event('admin.products.view.inventory.form_controls.drawer.content.before', ['product' => $product]) !!}
 
                             <v-warehouse-location-inventories
@@ -205,7 +205,7 @@
     >
         <div class="flex flex-col gap-2">
             <!-- Add location header -->
-            <div class="block w-full overflow-x-auto">
+            <div class="block w-full overflow-y-visible">
                 <x-admin::table class="!min-w-[600px]">
                     <x-admin::table.thead>
                         <x-admin::table.thead.tr>
