@@ -191,27 +191,18 @@
                                     @lang('admin::app.activities.edit.type')
                                 </x-admin::form.control-group.label>
 
-                                <x-admin::form.control-group.control
-                                    type="select"
-                                    name="type"
-                                    id="type"
-                                    :value="old('type') ?? $activity->type"
-                                    rules="required"
-                                    :label="trans('admin::app.activities.edit.type')"
-                                    :placeholder="trans('admin::app.activities.edit.type')"
-                                >
-                                    <option value="call">
-                                        @lang('admin::app.activities.edit.call')
-                                    </option>
-
-                                    <option value="meeting">
-                                        @lang('admin::app.activities.edit.meeting')
-                                    </option>
-
-                                    <option value="lunch">
-                                        @lang('admin::app.activities.edit.lunch')
-                                    </option>
-                                </x-admin::form.control-group.control>
+                                <Multiselect
+                                    :placeholder="'{{ trans('admin::app.activities.edit.type') }}'"
+                                    :options="[
+                                        { label: '@lang('admin::app.activities.edit.call')', value: 'call' },
+                                        { label: '@lang('admin::app.activities.edit.meeting')', value: 'meeting' },
+                                        { label: '@lang('admin::app.activities.edit.lunch')', value: 'lunch' }
+                                    ]"
+                                    label="label"
+                                    value-prop="value"
+                                    :searchable="false"
+                                    :close-on-select="true"
+                                />
 
                                 <x-admin::form.control-group.error control-name="type" />
                             </x-admin::form.control-group>

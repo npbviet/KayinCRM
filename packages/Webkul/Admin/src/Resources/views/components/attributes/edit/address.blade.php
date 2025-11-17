@@ -36,20 +36,21 @@
             <div class="grid w-full">
                 <!-- Country Field -->
                 <x-admin::form.control-group>
-                    <x-admin::form.control-group.control
-                        type="select"
-                        ::name="attribute['code'] + '[country]'"
-                        ::rules="attribute.is_required ? 'required|' + validations : validations"
-                        :label="trans('admin::app.common.custom-attributes.country')"
+                    <Multiselect
                         v-model="country"
-                    >
-                        <option value="">@lang('admin::app.common.custom-attributes.select-country')</option>
-                        
-                        @foreach (core()->countries() as $country)
-                            <option value="{{ $country->code }}">{{ $country->name }}</option>
-                        @endforeach
-                    </x-admin::form.control-group.control>
-
+                        :options='@json(
+                            collect(core()->countries())->map(fn($c) => [
+                                "label" => $c->name,
+                                "value" => $c->code
+                            ])->values()
+                        )'
+                        option-label="label"
+                        option-value="value"
+                        placeholder="@lang('admin::app.common.custom-attributes.select-country')"
+                        :searchable="true"
+                        :close-on-select="true"
+                        :rules="attribute.is_required ? 'required|' + validations : validations"
+                    />
                     <x-admin::form.control-group.error ::name="attribute['code'] + '[country]'" />
 
                     <x-admin::form.control-group.error ::name="attribute['code'] + '.country'" />
@@ -58,22 +59,16 @@
                 <!-- State Field -->
                 <template v-if="haveStates()">
                     <x-admin::form.control-group>
-                        <x-admin::form.control-group.control
-                            type="select"
-                            ::name="attribute['code'] + '[state]'"
+                        <Multiselect
                             v-model="state"
-                            :label="trans('admin::app.common.custom-attributes.state')"
-                            ::rules="attribute.is_required ? 'required|' + validations : validations"
-                        >
-                            <option value="">@lang('admin::app.common.custom-attributes.select-state')</option>
-                            
-                            <option 
-                                v-for='(state, index) in countryStates[country]' 
-                                :value="state.code"
-                            >
-                                @{{ state.name }}
-                            </option>
-                        </x-admin::form.control-group.control>
+                            :options="countryStates[country]"
+                            option-label="label"
+                            option-value="value"
+                            :placeholder="'{{ trans('admin::app.common.custom-attributes.select-state') }}'"
+                            :searchable="true"
+                            :close-on-select="true"
+                            :rules="attribute.is_required ? 'required|' + validations : validations"
+                        />
 
                         <x-admin::form.control-group.error ::name="attribute['code'] + '[state]'" />
 
@@ -140,13 +135,26 @@
 
             props: ['attribute', 'data', 'validations'],
 
-            data() {
+            data() {    
+
+                const countries = JSON.parse('@json(core()->groupedStatesByCountries())');
+                console.log(countries);
+                const states = {};
+                Object.keys(countries).forEach(countryCode => {
+                    states[countryCode] = countries[countryCode].map(state => {
+                        return {
+                            label: state.name,
+                            value: state.code
+                        }
+                    });
+                });
+             
                 return {
                     country: this.data?.country || '',
 
                     state: this.data?.state || '',
 
-                    countryStates: @json(core()->groupedStatesByCountries()),
+                    countryStates: states,
                 };
             },
             

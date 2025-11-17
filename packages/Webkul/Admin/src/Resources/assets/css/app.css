@@ -657,3 +657,58 @@
 .tox.tox-silver-sink.tox-tinymce-aux {
     z-index: 99999;
 }
+
+/* Base Multiselect */
+.multiselect {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #d1d5db;
+    border-radius: 0.375rem;
+    border-top-left-radius: 0.375rem;
+    border-bottom-left-radius: 0.375rem;
+    font-weight: 400;
+    font-size: 14px !important;
+    background-color: #ffffff;
+    color: #1f2937;
+    transition: border-color 0.2s;
+}
+
+.multiselect:hover {
+    border-color: #9ca3af;
+}
+
+.multiselect-wrapper {
+    min-height: auto !important;
+}
+
+.multiselect-search {
+    background-color: inherit !important;
+}
+
+.multiselect-option {
+    font-size: 14px !important;
+}
+
+.multiselect-option.is-selected {
+    background-color: var(--brand-color) !important;
+}
+
+/* Dark mode */
+.dark .multiselect {
+    background-color: #111827;
+    color: #d1d5db;
+    border-color: #1f2937;
+}
+
+.dark .multiselect:hover {
+    border-color: #9ca3af;
+}
+
+.dark .multiselect-dropdown {
+    background-color: #1f2937;
+}
+
+.dark .multiselect-option.is-pointed {
+    background-color: #111827;
+    color: rgb(209 213 219);
+}

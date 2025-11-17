@@ -1,4 +1,3 @@
-
 <x-admin::layouts>
     <!-- Page Title -->
     <x-slot:title>

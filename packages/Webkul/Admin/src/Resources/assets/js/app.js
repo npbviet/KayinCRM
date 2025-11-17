@@ -130,5 +130,14 @@ app.directive("debounce", Debounce);
 app.directive("safe-html", DOMPurify);
 app.directive("tooltip", ToolTip);
 
+/**
+ * Global components.
+ */
+// Đăng ký v-select toàn cục
+import Multiselect from "@vueform/multiselect";
+import "@vueform/multiselect/themes/default.css";
+
+app.component("Multiselect", Multiselect);
+
 export default app;
 
