@@ -206,7 +206,6 @@ Breadcrumbs::for('settings.users.edit.page', function (BreadcrumbTrail $trail, $
     $trail->push(trans('admin::app.settings.users.index.edit.title'), route('admin.settings.users.edit.page', $user->id));
 });
 
-
 // Dashboard > Users > Create Role ??
 Breadcrumbs::for('settings.users.create', function (BreadcrumbTrail $trail) {
     $trail->parent('settings.users');
