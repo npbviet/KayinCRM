@@ -124,7 +124,7 @@
 
                             <!-- Actions -->
                             <div class="flex justify-end">
-                                <a @click="editModal(record.actions.find(action => action.index === 'edit')?.url)">
+                                <a :href="`/admin/settings/users/edit-page/${record.id}`">
                                     <span
                                         :class="record.actions.find(action => action.index === 'edit')?.icon"
                                         class="cursor-pointer rounded-md p-1.5 text-2xl transition-all hover:bg-gray-200 dark:hover:bg-gray-800 max-sm:place-self-center"
@@ -172,7 +172,7 @@
                                         v-if="available.actions.length"
                                     >
                                         <!-- Actions -->
-                                        <a @click="editModal(record.actions.find(action => action.index === 'edit')?.url)">
+                                        <a :href="`/admin/settings/users/edit-page/${record.id}`">
                                             <span
                                                 :class="record.actions.find(action => action.index === 'edit')?.icon"
                                                 class="cursor-pointer rounded-md p-1.5 text-2xl transition-all hover:bg-gray-200 dark:hover:bg-gray-800 max-sm:place-self-center"
@@ -232,7 +232,30 @@
                                 }}
                             </p>
                         </x-slot>
-
+                        {{-- Checkbox permissions --}}
+                        <h2 class="mt-8 text-lg font-bold dark:text-white">
+                            @lang('admin::app.settings.users.index.permissions')</h2>
+                        
+                        <div class="grid grid-cols-2 gap-4 mt-4">
+                            @foreach ($permissions as $group => $actions)
+                                <div class="flex flex-col gap-2">
+                                    <h3 class="font-semibold">{{ ucwords($group) }}</h3>
+                        
+                                    @foreach ($actions as $permission)
+                                        <label class="flex items-center gap-2">
+                                            <input
+                                                type="checkbox"
+                                                name="permissions[]"
+                                                value="{{ $permission['key'] }}"
+                                                {{ in_array($permission['key'], $user->custom_permissions ?? []) ? 'checked' : '' }}
+                                                class="accent-brandColor"
+                                            >
+                                            {{ $permission['name'] }}
+                                        </label>
+                                    @endforeach
+                                </div>
+                            @endforeach
+                        </div>                        
                         <!-- Modal Content -->
                         <x-slot:content>
                             <x-admin::form.control-group.control

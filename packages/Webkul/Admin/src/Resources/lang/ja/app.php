@@ -1143,6 +1143,7 @@ return [
                     'individual'               => '個人',
                     'name'                     => '名前',
                     'password'                 => 'パスワード',
+                    'note'                     => '現在のままにするには空欄のままにしてください',
                     'permission'               => '権限',
                     'role'                     => '役割',
                     'save-btn'                 => 'ユーザーを保存',
@@ -1152,7 +1153,7 @@ return [
                     'select-at-lest-one-group' => '少なくとも1つのグループを選択してください',
                 ],
                 'edit' => [
-                    'title' => 'ユーザーを編集',
+                    'title'                    => 'ユーザーを編集',
                 ],
             ],
         ],

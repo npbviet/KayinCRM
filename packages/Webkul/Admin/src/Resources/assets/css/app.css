@@ -692,6 +692,9 @@
 .multiselect-option.is-selected {
     background-color: var(--brand-color) !important;
 }
+.multiselect-tag {
+    background-color: var(--brand-color) !important;
+}
 
 /* Dark mode */
 .dark .multiselect {
@@ -711,4 +714,12 @@
 .dark .multiselect-option.is-pointed {
     background-color: #111827;
     color: rgb(209 213 219);
+}
+
+.peer {
+    margin-right: 1rem;
+}
+
+.peer:checked~.peer-checked\:bg-brandColor {
+    background-color: var(--brand-color) !important;
 }
