@@ -1143,6 +1143,7 @@ return [
                     'individual'               => 'Cá nhân',
                     'name'                     => 'Tên',
                     'password'                 => 'Mật khẩu',
+                    'note'                     => 'Để trống nếu bạn không muốn thay đổi',
                     'permission'               => 'Quyền hạn',
                     'role'                     => 'Vai trò',
                     'save-btn'                 => 'Lưu Người Dùng',
@@ -1152,7 +1153,7 @@ return [
                     'select-at-lest-one-group' => 'Select at least one group',
                 ],
                 'edit' => [
-                    'title' => 'Chỉnh Sửa Người Dùng',
+                    'title'                    => 'Chỉnh Sửa Người Dùng',
                 ],
             ],
         ],

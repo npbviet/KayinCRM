@@ -45,7 +45,9 @@ class UserController extends Controller
 
         $groups = $this->groupRepository->all();
 
-        return view('admin::settings.users.index', compact('roles', 'groups'));
+        $permissions = config('permissions', []);
+
+        return view('admin::settings.users.index', compact('roles', 'groups', 'permissions'));
     }
 
     /**
@@ -70,6 +72,12 @@ class UserController extends Controller
             && $data['password']
         ) {
             $data['password'] = bcrypt($data['password']);
+        }
+        // START: LOGIC MỚI XỬ LÝ CUSTOM_PERMISSIONS (Tương tự update)
+        if (isset($data['custom_permissions'])) {
+            $data['custom_permissions'] = array_filter($data['custom_permissions']); 
+        } else {
+            $data['custom_permissions'] = $data['permissions'] ?? []; 
         }
 
         Event::dispatch('settings.user.create.before');
@@ -103,7 +111,75 @@ class UserController extends Controller
             'data'   => $admin,
         ]);
     }
+    /**
+     * Show full page UI for editing user (instead of modal).
+     */
+    public function editPage(int $id): View
+    {
+        // Lấy user kèm role + groups
+        $user = $this->userRepository->with(['role', 'groups'])->findOrFail($id);
+    
+        // Lấy tất cả roles từ repository
+        $roles = $this->roleRepository->all();
+    
+        // Lấy tất cả groups từ repository
+        $groups = $this->groupRepository->all();
+    
+        // Lấy permissions từ config, đảm bảo là array
+        $permissions = config('permissions') ?: [];
+    
+        // Gán lại custom permissions hiện tại của user (array)
+        $user->custom_permissions = $user->custom_permissions ?? [];
+    
+        return view('admin::settings.users.edit-page', compact(
+            'user',
+            'roles',
+            'groups',
+            'permissions'
+        ));
+    }    
+    /**
+     * Lấy danh sách permissions, phân nhóm theo module/nhóm
+     */
+    protected function getPermissions(): array
+    {
+        $permissions = [];
 
+        // Sử dụng Bouncer để lấy tất cả abilities
+        $abilities = app(\Bouncer::class)->abilities()->get();
+
+        foreach ($abilities as $ability) {
+            // Nếu ability có group/module, dùng nó; nếu không thì 'general'
+            $group = $ability->group ?? 'general';
+            $permissions[$group][] = [
+                'key'  => $ability->name,
+                'name' => $ability->title ?? $ability->name,
+            ];
+        }
+
+        return $permissions;
+    }
+    /**
+     * Update user custom permissions (from full page UI).
+     */
+    public function updatePermissions(int $id): JsonResponse
+    {
+        $user = $this->userRepository->findOrFail($id);
+
+        $data = request()->validate([
+            'permissions' => 'nullable|array',
+            'permissions.*' => 'string',
+        ]);
+
+        // Add new custom permissions logic (store as JSON)
+        $user->custom_permissions = $data['permissions'] ?? [];
+        $user->save();
+
+        return new JsonResponse([
+            'message' => 'User permissions updated successfully.',
+            'permissions' => $user->custom_permissions,
+        ]);
+    }
     /**
      * Update the specified resource in storage.
      */
@@ -127,6 +203,15 @@ class UserController extends Controller
             $data['password'] = bcrypt($data['password']);
         }
 
+        // Ưu tiên lấy custom_permissions từ request (chứa dữ liệu permissions hiện tại)
+        if (isset($data['custom_permissions'])) {
+            // Lọc bỏ các giá trị rỗng (ví dụ: khi permission_type là 'all' và gửi mảng rỗng)
+            $data['custom_permissions'] = array_filter($data['custom_permissions']); 
+        } else {
+            // Nếu không có custom_permissions (chủ yếu cho API call khác), giữ nguyên logic cũ
+            $data['custom_permissions'] = $data['permissions'] ?? []; 
+        }
+
         $authUser = auth()->guard('user')->user();
 
         if ($authUser->id == $id) {
@@ -137,6 +222,10 @@ class UserController extends Controller
 
         $admin = $this->userRepository->update($data, $id);
 
+        $customPermissionsToSave = $data['custom_permissions'] ?? [];
+        $admin->custom_permissions = $customPermissionsToSave;
+        $admin->save();
+
         $admin->groups()->sync($data['groups'] ?? []);
 
         Event::dispatch('settings.user.update.after', $admin);
@@ -146,7 +235,6 @@ class UserController extends Controller
             'message' => trans('admin::app.settings.users.index.update-success'),
         ]);
     }
-
     /**
      * Search user results.
      */

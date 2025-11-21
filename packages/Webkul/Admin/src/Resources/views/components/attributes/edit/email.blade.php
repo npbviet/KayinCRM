@@ -46,7 +46,7 @@
                         ]"
                         label="label"
                         value-prop="value"
-                        placeholder="@lang('admin::app.common.custom-attributes.select-option')"
+                        placeholder="@lang('admin::app.common.custom-attributes.select')"
                         :searchable="false"
                         :close-on-select="true"
                     />

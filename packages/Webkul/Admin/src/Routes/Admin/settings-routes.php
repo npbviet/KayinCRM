@@ -168,6 +168,14 @@ Route::prefix('settings')->group(function () {
 
         Route::get('search', 'search')->name('admin.settings.users.search');
 
+        // ⭐ Page UI mới: trang edit user full page
+        Route::get('edit-page/{id}', 'editPage')
+            ->name('admin.settings.users.edit.page');
+
+        // ⭐ Update permissions riêng
+        Route::post('update-permissions/{id}', 'updatePermissions')
+            ->name('admin.settings.users.update-permissions');
+
         Route::delete('{id}', 'destroy')->name('admin.settings.users.delete');
 
         Route::post('mass-update', 'massUpdate')->name('admin.settings.users.mass_update');

@@ -1143,6 +1143,7 @@ return [
                     'individual'               => 'Individual',
                     'name'                     => 'Name',
                     'password'                 => 'Password',
+                    'note'                     => 'Leave blank to keep current',
                     'permission'               => 'Permission',
                     'role'                     => 'Role',
                     'save-btn'                 => 'Save User',

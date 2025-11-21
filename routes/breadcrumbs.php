@@ -200,13 +200,20 @@ Breadcrumbs::for('settings.users', function (BreadcrumbTrail $trail) {
     $trail->push(trans('admin::app.layouts.users'), route('admin.settings.users.index'));
 });
 
-// Dashboard > Users > Create Role
+// Dashboard > Users > Edit Page
+Breadcrumbs::for('settings.users.edit.page', function (BreadcrumbTrail $trail, $user) {
+    $trail->parent('settings.users');
+    $trail->push(trans('admin::app.settings.users.index.edit.title'), route('admin.settings.users.edit.page', $user->id));
+});
+
+
+// Dashboard > Users > Create Role ??
 Breadcrumbs::for('settings.users.create', function (BreadcrumbTrail $trail) {
     $trail->parent('settings.users');
     $trail->push(trans('admin::app.settings.users.create-title'), route('admin.settings.users.create'));
 });
 
-// Dashboard > Users > Edit Role
+// Dashboard > Users > Edit Role ??
 Breadcrumbs::for('settings.users.edit', function (BreadcrumbTrail $trail, $user) {
     $trail->parent('settings.users');
     $trail->push(trans('admin::app.settings.users.edit-title'), route('admin.settings.users.edit', $user->id));
