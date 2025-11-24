@@ -1683,7 +1683,7 @@ return [
             'no-result-found' => 'レコードが見つかりません。',
             'users'           => 'ユーザー',
         ],
-        'updated'              => ':attribute が更新されました。',
+        'updated'              => 'が更新されました。',
         'created'              => '作成されました。',
         'duration-overlapping' => '参加者はこの時間に他のミーティングがあります。続行しますか？',
         'create-success'       => 'アクティビティが正常に作成されました。',

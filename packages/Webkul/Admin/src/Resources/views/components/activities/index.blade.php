@@ -96,7 +96,24 @@
                                             v-if="activity.title"
                                         >
                                             <p class="flex flex-wrap items-center gap-1 font-medium dark:text-white">
-                                                @{{ activity.title }}
+                                                <!-- System activity: dịch key đã lưu trong DB -->
+                                                <template v-if="activity.type === 'system'">
+                                                    <template v-if="activity.title === 'admin::app.activities.created'">
+                                                        @{{ "@lang('admin::app.activities.created')" }}
+                                                    </template>
+
+                                                    <template v-else>
+                                                        @{{ "@lang('admin::app.activities.updated')" }}
+                                                        <span class="flex flex-wrap items-center gap-1 font-medium dark:text-white">
+                                                            : @{{ activity.additional?.attribute || '' }}
+                                                        </span>
+                                                    </template>
+                                                </template>
+
+                                                <!-- Các activity khác (call, meeting, email, note...) vẫn dùng title bình thường -->
+                                                <template v-else>
+                                                    @{{ activity.title }}
+                                                </template>
 
                                                 <template v-if="activity.type == 'system' && activity.additional">
                                                     <p class="flex items-center gap-1">
