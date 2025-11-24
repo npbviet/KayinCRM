@@ -1683,7 +1683,7 @@ return [
             'no-result-found' => 'Không tìm thấy bản ghi.',
             'users'           => 'Người Dùng',
         ],
-        'updated'              => 'Đã cập nhật :attribute',
+        'updated'              => 'Đã cập nhật',
         'created'              => 'Đã tạo',
         'duration-overlapping' => 'Người tham gia có một cuộc họp khác vào thời điểm này. Bạn có muốn tiếp tục không?',
         'create-success'       => 'Hoạt động được tạo thành công.',

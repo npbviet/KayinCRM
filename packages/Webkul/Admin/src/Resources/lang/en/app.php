@@ -1683,7 +1683,7 @@ return [
             'no-result-found' => 'Records not found.',
             'users'           => 'Users',
         ],
-        'updated'              => 'Updated :attribute',
+        'updated'              => 'Updated',
         'created'              => 'Created',
         'duration-overlapping' => 'Participants have another meeting at this time. Do you want to continue?',
         'create-success'       => 'Activity created successfully.',
