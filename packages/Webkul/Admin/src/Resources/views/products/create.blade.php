@@ -10,6 +10,7 @@
     <x-admin::form
         :action="route('admin.products.store')"
         method="POST"
+        enctype="multipart/form-data"
     >
         <div class="flex flex-col gap-4">
             <div class="flex items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
@@ -31,7 +32,7 @@
                         {!! view_render_event('admin.products.create.save_button.before') !!}
 
                         <!-- Create button for Product -->
-                        @if (bouncer()->hasPermission('settings.user.groups.create'))
+                        @if (bouncer()->hasPermission('products.create'))
                             <button
                                 type="submit"
                                 class="primary-button"
@@ -52,6 +53,25 @@
                         <p class="mb-4 text-base font-semibold text-gray-800 dark:text-white">
                             @lang('admin::app.products.create.general')
                         </p>
+
+                        <!-- Thay toàn bộ phần Image hiện tại của bạn bằng đoạn này -->
+                        <x-admin::form.control-group class="mb-6">
+                            <x-admin::form.control-group.label class="required">
+                                @lang('admin::app.products.create.image-product')
+                            </x-admin::form.control-group.label>
+
+                            <x-admin::media.images
+                                name="images"
+                                :allow-multiple="true"
+                                :uploaded-images="old('images') ?? []"
+                            />
+
+                            <x-admin::form.control-group.error control-name="images" />
+                            
+                            <p class="mt-2 text-xs text-gray-600 dark:text-gray-300">
+                                @lang('admin::app.products.create.upload-image-info')
+                            </p>
+                        </x-admin::form.control-group>
 
                         {!! view_render_event('admin.products.create.attributes.before') !!}
 

@@ -125,7 +125,8 @@
 
                     <input
                         type="hidden"
-                        :name="name + '[' + image.id + ']'"
+                        :name="name + '[]'"
+                        :value="image.path"
                         v-if="! image.is_new"
                     />
 
@@ -311,6 +312,10 @@
 
                 setFile(file) {
                     this.image.is_new = 1;
+
+                    if (! this.image.path) {
+                        this.image.path = file.name; 
+                    }
 
                     const dataTransfer = new DataTransfer();
 

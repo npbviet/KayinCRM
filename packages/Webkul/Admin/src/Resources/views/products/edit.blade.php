@@ -50,7 +50,22 @@
                         <p class="mb-4 text-base font-semibold text-gray-800 dark:text-white">
                             @lang('admin::app.products.create.general')
                         </p>
-
+                        <x-admin::form.control-group class="mb-6">
+                            <x-admin::form.control-group.label class="required">
+                                @lang('admin::app.products.create.image-product')
+                            </x-admin::form.control-group.label>
+                    
+                            <x-admin::media.images
+                                name="images"
+                                :uploaded-images="$product->uploaded_images ?? []"
+                                :allow-multiple="true"
+                                :allow-remove="true"
+                            />
+                            
+                            <p class="mt-2 text-xs text-gray-600 dark:text-gray-300">
+                                @lang('admin::app.products.create.upload-image-info')
+                            </p>
+                        </x-admin::form.control-group>
                         {!! view_render_event('admin.products.edit.attributes.before', ['product' => $product]) !!}
 
                         <x-admin::attributes
