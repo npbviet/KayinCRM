@@ -68,6 +68,7 @@
                             name="image"
                             :uploaded-images="$user->image ? [['id' => 'image', 'url' => $user->image_url]] : []"
                         />
+                        
                     </x-admin::form.control-group>
 
                     <p class="mb-4 text-xs text-gray-600 dark:text-gray-300">

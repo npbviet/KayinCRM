@@ -46,6 +46,62 @@
                     {!! view_render_event('admin.products.view.left.sku.after', ['product' => $product]) !!}
                 </div>
 
+                {!! view_render_event('admin.products.view.left.images.before', ['product' => $product]) !!}
+
+                <!-- Product Images Section -->
+                <div class="mb-4">
+                    @php
+                        // Lấy ảnh Thumbnail (ưu tiên is_thumbnail = 1, nếu không có lấy ảnh đầu tiên)
+                        $mainImage = $product->images->firstWhere('is_thumbnail', 1) ?? $product->images->first();
+                        
+                        // Lấy các ảnh còn lại (loại trừ ảnh mainImage ra)
+                        $galleryImages = $product->images->reject(function ($image) use ($mainImage) {
+                            return $image->id === $mainImage?->id;
+                        });
+                    @endphp
+                
+                    <div class="flex flex-col gap-3">
+                        @if ($galleryImages->isNotEmpty())
+                            <div class="flex gap-2 overflow-x-auto pb-1">
+                                @foreach ($galleryImages as $image)
+                                    <div class="relative flex-shrink-0 cursor-pointer group">
+                                        <div class="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
+                                            <img 
+                                                src="{{ asset('storage/' . $image->path) }}" 
+                                                alt="Gallery Image"
+                                                class="h-12 w-12 object-cover transition-opacity hover:opacity-80"
+                                                loading="lazy"
+                                            >
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                        <div class="relative w-full">
+                            @if ($mainImage)
+                                <div class="relative overflow-hidden rounded-xl border border-gray-200 shadow-sm dark:border-gray-800">
+                                    <img 
+                                        src="{{ asset('storage/' . $mainImage->path) }}" 
+                                        alt="{{ $product->name }}"
+                                        class="w-full h-auto object-cover max-h-[300px]"
+                                        loading="lazy"
+                                    >
+                                </div>
+                            @else
+                                <div class="flex h-48 w-full items-center justify-center rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
+                                    <div class="flex flex-col items-center text-gray-400">
+                                        <span class="text-sm">No Image</span>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                
+
+                    </div>
+                </div>
+
+                {!! view_render_event('admin.products.view.left.images.after', ['product' => $product]) !!}
+
                 {!! view_render_event('admin.products.view.left.activity_actions.before', ['product' => $product]) !!}
 
                 <!-- Activity Actions -->

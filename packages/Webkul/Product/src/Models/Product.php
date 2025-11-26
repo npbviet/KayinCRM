@@ -30,6 +30,12 @@ class Product extends Model implements ProductContract
         'price',
     ];
 
+    protected $with = ['images'];
+
+    protected $casts = [
+        'price'         => 'decimal:2',
+        'quantity'      => 'integer',
+    ];
     /**
      * Get the product warehouses that owns the product.
      */
@@ -68,5 +74,23 @@ class Product extends Model implements ProductContract
     public function activities()
     {
         return $this->belongsToMany(ActivityProxy::modelClass(), 'product_activities');
+    }
+    /**
+     * Get the product images.
+     */
+    protected $appends = ['thumbnail'];
+    public function images()
+    {
+        return $this->hasMany(\Webkul\Product\Models\ProductImage::class, 'product_id')  // SỬA: bỏ Proxy, dùng model trực tiếp
+                    ->orderBy('sort_order');
+    }
+
+    /**
+     * Get the thumbnail image (thumbnail ưu tiên, nếu không có thì ảnh đầu tiên)
+     */
+    public function getThumbnailAttribute()
+    {
+        return $this->images->where('is_thumbnail', 1)->first()
+            ?? $this->images->first();
     }
 }

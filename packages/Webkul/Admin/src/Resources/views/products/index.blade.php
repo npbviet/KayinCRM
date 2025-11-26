@@ -38,6 +38,7 @@
         <x-admin::datagrid :src="route('admin.products.index')">
             <!-- DataGrid Shimmer -->
             <x-admin::shimmer.datagrid />
+            
         </x-admin::datagrid>
 
         {!! view_render_event('admin.products.index.datagrid.after') !!}

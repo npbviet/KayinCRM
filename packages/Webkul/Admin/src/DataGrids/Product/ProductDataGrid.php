@@ -20,17 +20,22 @@ class ProductDataGrid extends DataGrid
             ->leftJoin('product_inventories', 'products.id', '=', 'product_inventories.product_id')
             ->leftJoin('product_tags', 'products.id', '=', 'product_tags.product_id')
             ->leftJoin('tags', 'tags.id', '=', 'product_tags.tag_id')
+            ->leftJoin('product_images', function ($join) {
+                $join->on('products.id', '=', 'product_images.product_id')
+                     ->whereRaw('product_images.id = (SELECT MIN(id) FROM product_images pi2 WHERE pi2.product_id = products.id)');
+            })
             ->select(
                 'products.id',
                 'products.sku',
                 'products.name',
                 'products.price',
                 'tags.name as tag_name',
+                'product_images.path as product_image_path', // Đã thêm cột ảnh vào truy vấn
             )
             ->addSelect(DB::raw('SUM('.$tablePrefix.'product_inventories.in_stock) as total_in_stock'))
             ->addSelect(DB::raw('SUM('.$tablePrefix.'product_inventories.allocated) as total_allocated'))
             ->addSelect(DB::raw('SUM('.$tablePrefix.'product_inventories.in_stock - '.$tablePrefix.'product_inventories.allocated) as total_on_hand'))
-            ->groupBy('products.id');
+            ->groupBy('products.id', 'product_images.path');
 
         if (request()->route('id')) {
             $queryBuilder->where('product_inventories.warehouse_id', request()->route('id'));
@@ -49,7 +54,30 @@ class ProductDataGrid extends DataGrid
      * Add columns.
      */
     public function prepareColumns(): void
-    {
+    {   
+        $this->addColumn([
+            'index'      => 'product_image_path',
+            'label'      => trans('admin::app.products.index.datagrid.image'),
+            'type'       => 'string',
+            'searchable' => false,
+            'sortable'   => false,
+            'filterable' => false,
+            'width'      => '80px',
+            'closure'    => function ($row) {
+                if ($row->product_image_path) {
+                    $imageUrl = url('storage/' . $row->product_image_path);
+                    return "<img src='{$imageUrl}' 
+                                 class='w-12 h-12 object-cover rounded border border-gray-300 shadow-sm'
+                                 alt='{$row->sku}'
+                                 loading='lazy'>";
+                }
+
+                // Placeholder nếu không có ảnh
+                return "<div class='w-12 h-12 bg-gray-200 border-2 border-dashed rounded flex items-center justify-center text-xs text-gray-500'>
+                            No Image
+                        </div>";
+            },
+        ]);
         $this->addColumn([
             'index'      => 'sku',
             'label'      => trans('admin::app.products.index.datagrid.sku'),
