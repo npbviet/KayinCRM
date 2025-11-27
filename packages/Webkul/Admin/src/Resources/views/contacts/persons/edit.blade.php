@@ -47,6 +47,9 @@
             </div>
 
             <div class="box-shadow rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
+                @php
+                    view()->share('current_person_id', $person->id);
+                @endphp
                 {!! view_render_event('admin.contacts.persons.edit.form_controls.before') !!}
 
                 <x-admin::attributes
