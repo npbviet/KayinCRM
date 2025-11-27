@@ -1,8 +1,13 @@
 @if (isset($attribute))
+@php
+    $recordId = view()->shared('current_person_id', null);
+    $recordId = is_numeric($recordId) ? (int) $recordId : null;
+@endphp
     <v-email-component
         :attribute="{{ json_encode($attribute) }}"
         :validations="'{{ $validations }}'"
         :value="{{ json_encode(old($attribute->code) ?? $value) }}"
+        :record-id="{{ json_encode($recordId) }}"
     >
         <div class="mb-2 flex items-center">
             <input
@@ -26,6 +31,7 @@
     >
         <template v-for="(email, index) in emails">
             <div class="mb-2 flex items-center">
+                <!-- Input Value -->
                 <x-admin::form.control-group.control
                     type="text"
                     ::id="attribute.code"
@@ -37,13 +43,18 @@
                     ::disabled="isDisabled"
                 />
 
+                <!-- FIX: Thêm Input Hidden cho Label để submit form được -->
+                <input 
+                    type="hidden" 
+                    :name="`${attribute['code']}[${index}][label]`" 
+                    :value="email['label']"
+                />
+
                 <div class="relative w-48">
+                    <!-- FIX: Đổi v-model từ emails[0] thành email['label'] và dùng computed options -->
                     <Multiselect
-                        v-model="emails[0].label"
-                        :options="[
-                            { label: '@lang('admin::app.common.custom-attributes.work')', value: 'work' },
-                            { label: '@lang('admin::app.common.custom-attributes.home')', value: 'home' }
-                        ]"
+                        v-model="email['label']"
+                        :options="labelOptions"
                         label="label"
                         value-prop="value"
                         placeholder="@lang('admin::app.common.custom-attributes.select')"
@@ -59,9 +70,9 @@
                 ></i>
             </div>
 
+            <!-- Error components -->
             <x-admin::form.control-group.error ::name="`${attribute['code']}[${index}][value]`"/>
-
-            <x-admin::form.control-group.error ::name="`${attribute['code']}[${index}].value`"/>
+            <x-admin::form.control-group.error ::name="`${attribute['code']}[${index}][label]`"/>
         </template>
 
         <span
@@ -79,21 +90,18 @@
         app.component('v-email-component', {
             template: '#v-email-component-template',
 
-            props: ['validations', 'isDisabled', 'attribute', 'value'],
+            props: ['validations', 'isDisabled', 'attribute', 'value', 'recordId'],
 
             data() {
                 return {
-                    emails: this.value || [{'value': '', 'label': 'work'}],
+                    emails: this.value && this.value.length ? this.value : [{'value': '', 'label': 'work'}],
                 };
             },
 
             watch: {
                 value(newValue, oldValue) {
-                    if (
-                        JSON.stringify(newValue)
-                        !== JSON.stringify(oldValue)
-                    ) {
-                        this.emails = newValue || [{'value': '', 'label': 'work'}];
+                    if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+                        this.emails = newValue && newValue.length ? newValue : [{'value': '', 'label': 'work'}];
                     }
                 },
             },
@@ -102,14 +110,22 @@
                 getValidation() {
                     return {
                         email: true,
-                        unique_email: this.emails ?? [],
+                        unique_email: true,
                         ...(this.validations === 'required' ? { required: true } : {}),
                     };
                 },
+
+                labelOptions() {
+                    return [
+                        { label: "@lang('admin::app.common.custom-attributes.work')", value: 'work' },
+                        { label: "@lang('admin::app.common.custom-attributes.home')", value: 'home' }
+                    ];
+                }
             },
 
             created() {
                 this.extendValidations();
+                console.log('Email Component - Current Person ID:', this.recordId);
             },
 
             methods: {
@@ -125,43 +141,34 @@
                 },
 
                 extendValidations() {
-                    defineRule('unique_email', async (value, emails) => {
-                        if (! value || ! value.length) {
-                            return true;
+                    defineRule('unique_email', async (value, emails) => {   // THAM SỐ THỨ 2 emails – GIỐNG HỆT PHONE
+                        if (!value || !value.length) return true;
+
+                        // Check trùng trong form (frontend) – giống hệt phone
+                        const emailOccurrences = emails.filter(emailItem => emailItem.value === value).length;
+                        if (emailOccurrences > 1) {
+                            return 'This email is duplicated in the form.';
                         }
 
-                        const foundEmails = emails.filter(email => email.value === value).length;
-
-                        if (foundEmails > 1) {
-                            return 'This email is already in use.';
-                        }
-
-                        /**
-                         * Check if the email is unique. This support is only for person emails only.
-                         */
-                        if (this.attribute.code === 'person[emails]') {
-                            try {
-                                const { data } = await this.$axios.get('{{ route('admin.settings.attributes.check_unique_validation') }}', {
-                                    params: {
-                                        entity_id: this.attribute.id,
-                                        entity_type: 'persons',
-                                        attribute_code: 'emails',
-                                        attribute_value: value
-                                    }
-                                });
-
-                                if (! data.validated) {
-                                    return 'This email is already in use.';
+                        // Check server-side
+                        try {
+                            const { data } = await this.$axios.get('{{ route('admin.settings.attributes.check_unique_validation') }}', {
+                                params: {
+                                    entity_id: this.recordId,     // Đúng – null khi tạo mới, số khi sửa
+                                    entity_type: 'persons',
+                                    attribute_code: 'emails',
+                                    attribute_value: value
                                 }
+                            });
 
-                                return true;
-                            } catch (error) {
-                                console.error('Error checking email: ', error);
-
-                                return 'Error validating email. Please try again.';
+                            if (!data.validated) {
+                                return 'This email is already in use.';
                             }
-                        } else {
+
                             return true;
+                        } catch (error) {
+                            console.error('Error checking email uniqueness:', error);
+                            return true; // Không block user khi API lỗi
                         }
                     });
                 },
