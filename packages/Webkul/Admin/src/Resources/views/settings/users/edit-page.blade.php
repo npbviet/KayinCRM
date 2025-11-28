@@ -79,6 +79,8 @@
                             name="email"
                             v-model="user.email"
                             rules="required"
+                            readonly
+                            class="bg-gray-100 cursor-not-allowed dark:bg-gray-950"
                         />
                         <x-admin::form.control-group.error control-name="email" />
                     </x-admin::form.control-group>

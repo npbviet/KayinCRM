@@ -15,21 +15,12 @@ class UserDataGrid extends DataGrid
     public function prepareQueryBuilder(): Builder
     {
         $queryBuilder = DB::table('users')
-            ->distinct()
-            ->addSelect(
-                'id',
-                'name',
-                'email',
-                'image',
-                'status',
-                'created_at'
-            )
-            ->leftJoin('user_groups', 'id', '=', 'user_groups.user_id');
-
+            ->select('id', 'name', 'email', 'image', 'status', 'created_at'); // bỏ leftJoin
+    
         if ($userIds = bouncer()->getAuthorizedUserIds()) {
             $queryBuilder->whereIn('id', $userIds);
         }
-
+    
         return $queryBuilder;
     }
 

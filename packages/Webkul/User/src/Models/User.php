@@ -28,6 +28,7 @@ class User extends Authenticatable implements UserContract
         'view_permission',
         'provider',
         'provider_id',
+        'custom_permissions',
     ];
 
     /**

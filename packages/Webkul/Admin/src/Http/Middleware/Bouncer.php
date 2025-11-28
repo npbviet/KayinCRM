@@ -78,9 +78,17 @@ class Bouncer
     public function checkIfAuthorized()
     {
         $roles = acl()->getRoles();
-
+    
+        // Nếu route có trong ACL
         if (isset($roles[Route::currentRouteName()])) {
-            bouncer()->allow($roles[Route::currentRouteName()]);
+            // Lấy permission được map từ ACL
+            $permission = $roles[Route::currentRouteName()];
+    
+            // Dùng permission map để check
+            if (! bouncer()->hasPermission($permission)) {
+                abort(401, 'This action is unauthorized.');
+            }
         }
     }
+    
 }

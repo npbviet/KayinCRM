@@ -51,6 +51,7 @@
                         :close-on-select="true"
                         :rules="attribute.is_required ? 'required|' + validations : validations"
                     />
+                    <input type="hidden" :name="attribute['code'] + '[country]'" :value="country">
                     <x-admin::form.control-group.error ::name="attribute['code'] + '[country]'" />
 
                     <x-admin::form.control-group.error ::name="attribute['code'] + '.country'" />
@@ -69,6 +70,7 @@
                             :close-on-select="true"
                             :rules="attribute.is_required ? 'required|' + validations : validations"
                         />
+                        <input type="hidden" :name="attribute['code'] + '[state]'" :value="state">
 
                         <x-admin::form.control-group.error ::name="attribute['code'] + '[state]'" />
 
@@ -85,6 +87,7 @@
                             :label="trans('admin::app.common.custom-attributes.state')"
                             ::rules="attribute.is_required ? 'required|' + validations : validations"
                             v-model="state"
+
                         >
                         </x-admin::form.control-group.control>
                         

@@ -2,7 +2,6 @@
     'type' => 'text',
     'name' => '',
 ])
-
 @switch($type)
     @case('hidden')
     @case('text')
