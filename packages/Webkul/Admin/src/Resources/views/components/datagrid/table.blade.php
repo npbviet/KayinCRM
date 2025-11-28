@@ -82,7 +82,7 @@
 
                             <!-- Actions -->
                             <p
-                                class="text-center"
+                                class="text-end mr-4"
                                 v-if="available.actions.length"
                             >
                                 @lang('admin::app.components.datagrid.table.actions')

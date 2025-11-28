@@ -602,6 +602,7 @@
                 },
             });
 
+            
             app.component('v-quote-item-list', {
                 template: '#v-quote-item-list-template',
 

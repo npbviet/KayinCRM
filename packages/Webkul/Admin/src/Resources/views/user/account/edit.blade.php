@@ -106,6 +106,8 @@
                             rules="required"
                             :value="old('email') ?: $user->email"
                             :label="trans('admin::app.account.edit.email')"
+                            readonly
+                            class="bg-gray-100 cursor-not-allowed dark:bg-gray-950"
                         />
 
                         <x-admin::form.control-group.error control-name="email" />
