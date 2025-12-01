@@ -43,6 +43,25 @@
                         {{ $person->job_title }}
                     </p>
 
+                    <div class="mt-2 flex flex-col gap-1 text-sm">
+                        <p class="flex justify-between">
+                            <span class="font-semibold text-gray-600 dark:text-gray-400">
+                                @lang('admin::app.contacts.persons.index.datagrid.leads-won'):
+                            </span>
+                            <span class="font-medium text-gray-800 dark:text-white">
+                                {{ $person->completed_leads_count }}
+                            </span>
+                        </p>
+                        <p class="flex justify-between">
+                            <span class="font-semibold text-gray-600 dark:text-gray-400">
+                                @lang('admin::app.contacts.persons.index.datagrid.total-deal-value'):
+                            </span>
+                            <span class="font-medium text-gray-800 dark:text-white">
+                                {{ $person->completed_leads_value }}
+                            </span>
+                        </p>
+                    </div>
+
                     {!! view_render_event('admin.contact.persons.view.title.after', ['person' => $person]) !!}
                 </div>
                 

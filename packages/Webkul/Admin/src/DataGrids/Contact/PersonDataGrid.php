@@ -6,6 +6,8 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Webkul\Contact\Repositories\OrganizationRepository;
 use Webkul\DataGrid\DataGrid;
+// 1. IMPORT ĐÚNG MODEL CỦA KRAYIN
+use Webkul\Lead\Models\Lead; 
 
 class PersonDataGrid extends DataGrid
 {
@@ -56,7 +58,7 @@ class PersonDataGrid extends DataGrid
             'sortable'   => true,
             'searchable' => true,
         ]);
-
+    
         $this->addColumn([
             'index'      => 'person_name',
             'label'      => trans('admin::app.contacts.persons.index.datagrid.name'),
@@ -65,7 +67,7 @@ class PersonDataGrid extends DataGrid
             'filterable' => true,
             'searchable' => true,
         ]);
-
+    
         $this->addColumn([
             'index'      => 'emails',
             'label'      => trans('admin::app.contacts.persons.index.datagrid.emails'),
@@ -73,9 +75,9 @@ class PersonDataGrid extends DataGrid
             'sortable'   => false,
             'filterable' => true,
             'searchable' => true,
-            'closure'    => fn ($row) => collect(json_decode($row->emails, true) ?? [])->pluck('value')->join(', '),
+            'closure'    => fn ($row) => collect(json_decode($row->emails ?? '[]', true))->pluck('value')->join(', '),
         ]);
-
+    
         $this->addColumn([
             'index'      => 'contact_numbers',
             'label'      => trans('admin::app.contacts.persons.index.datagrid.contact-numbers'),
@@ -83,9 +85,9 @@ class PersonDataGrid extends DataGrid
             'sortable'   => true,
             'filterable' => true,
             'searchable' => true,
-            'closure'    => fn ($row) => collect(json_decode($row->contact_numbers, true) ?? [])->pluck('value')->join(', '),
+            'closure'    => fn ($row) => collect(json_decode($row->contact_numbers ?? '[]', true))->pluck('value')->join(', '),
         ]);
-
+    
         $this->addColumn([
             'index'              => 'organization',
             'label'              => trans('admin::app.contacts.persons.index.datagrid.organization-name'),
@@ -96,11 +98,45 @@ class PersonDataGrid extends DataGrid
             'filterable_type'    => 'searchable_dropdown',
             'filterable_options' => [
                 'repository' => OrganizationRepository::class,
-                'column'     => [
-                    'label' => 'name',
-                    'value' => 'name',
-                ],
+                'column'     => ['label' => 'name', 'value' => 'name'],
             ],
+        ]);
+    
+        // --- CÁC CỘT MỚI (Sử dụng Model Lead thay vì Order) ---
+
+        $this->addColumn([
+            'index'      => 'completed_leads_count',
+            'label'      => trans('admin::app.contacts.persons.index.datagrid.leads-won'),
+            'type'       => 'integer',
+            'searchable' => false,
+            'filterable' => false,
+            'sortable'   => false,
+            'closure'    => function ($row) {
+                // Sử dụng person_id trực tiếp, nhanh hơn và chính xác hơn so với việc dò email
+                return Lead::where('person_id', $row->id)
+                    ->whereHas('stage', function ($query) {
+                        $query->where('code', 'won'); // Lọc các Lead có trạng thái là 'won'
+                    })
+                    ->count();
+            },
+        ]);
+
+        $this->addColumn([
+            'index'      => 'completed_leads_value',
+            'label'      => trans('admin::app.contacts.persons.index.datagrid.total-deal-value'),
+            'type'       => 'string',
+            'searchable' => false,
+            'filterable' => false,
+            'sortable'   => false,
+            'closure'    => function ($row) {
+                $total = Lead::where('person_id', $row->id)
+                    ->whereHas('stage', function ($query) {
+                        $query->where('code', 'won');
+                    })
+                    ->sum('lead_value'); // Cột giá trị trong Krayin là lead_value
+                
+                return core()->formatBasePrice($total);
+            },
         ]);
     }
 

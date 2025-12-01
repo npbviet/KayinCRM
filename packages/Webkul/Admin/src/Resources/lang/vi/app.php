@@ -511,6 +511,8 @@ return [
                     'view'              => 'Xem',
                     'name'              => 'Tên',
                     'organization-name' => 'Tên Tổ chức',
+                    'leads-won'         => 'Thương vụ đã chốt',
+                    'total-deal-value'  => 'Tổng giá trị thương vụ',
                 ],
             ],
             'view' => [
