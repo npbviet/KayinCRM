@@ -35,3 +35,6 @@
 .icon-tasks:before {
   content: "\e926";
 }
+.icon-quill:before {
+    content: "\e907";
+  }

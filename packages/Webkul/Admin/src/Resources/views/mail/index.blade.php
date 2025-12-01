@@ -504,6 +504,27 @@
                                 <x-admin::form.control-group.error control-name="reply" />
                             </x-admin::form.control-group>
 
+                            <!-- Templates -->
+                            <!--<div
+                                class="absolute z-10 w-full rounded-md border border-gray-200 bg-white shadow-lg dark:border-gray-800 dark:bg-gray-900"
+                                v-show="showTemplateSelector"
+                            >
+                                <ul class="max-h-60 overflow-y-auto p-1">   
+                                    <li
+                                        v-for="template in templates"
+                                        @click="selectTemplate(template)"
+                                        class="cursor-pointer rounded-md p-2 text-sm text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+                                    >
+                                        @{{ template.name }}
+                                    </li>
+                                    <li
+                                        v-if="templates.length === 0"
+                                        class="p-2 text-sm text-gray-400"
+                                    >
+                                        @lang('admin::app.mail.index.mail.no-templates')
+                                    </li>
+                                </ul>
+                            </div>-->
                             <!-- Attachments -->
                             <x-admin::form.control-group class="!mb-0">
                                 <x-admin::attachments
@@ -515,11 +536,18 @@
 
                         <x-slot:footer>
                             <div class="flex w-full items-center justify-between">
-                                <label
-                                    class="icon-attachment cursor-pointer rounded-md p-1 text-2xl transition-all hover:bg-gray-200 dark:hover:bg-gray-800"
-                                    for="file-upload"
-                                ></label>
-
+                                <div class="flex items-center">
+                                    <label
+                                        class="icon-attachment cursor-pointer rounded-md p-1 text-2xl transition-all hover:bg-gray-200 dark:hover:bg-gray-800"
+                                        for="file-upload"
+                                    ></label>
+                        
+                                    <label
+                                        class="icon-quill ml-4 cursor-pointer rounded-md p-1.5 text-xl transition-all hover:bg-gray-200 dark:hover:bg-gray-800"
+                                        @click="toggleTemplateSelector($event)" ref="templateIconRef"
+                                    ></label>
+                                </div>
+                                
                                 <div class="flex items-center gap-4">
                                     <button
                                         type="submit"
@@ -530,7 +558,7 @@
                                     >
                                         @lang('admin::app.mail.index.mail.draft')
                                     </button>
-
+                        
                                     <x-admin::button
                                         class="primary-button"
                                         type="submit"
@@ -546,6 +574,29 @@
                     </x-admin::modal>
                 </form>
             </x-admin::form>
+
+            <div
+                class="fixed z-[99999] w-60 rounded-md border border-gray-200 bg-white shadow-xl dark:border-gray-800 dark:bg-gray-900"
+                v-show="showTemplateSelector"
+                :style="templateSelectorStyle"
+                v-click-out-side="() => showTemplateSelector = false"
+            >
+                <ul class="max-h-60 overflow-y-auto p-1">
+                    <li
+                        v-for="template in templates"
+                        @click="selectTemplate(template)"
+                        class="cursor-pointer rounded-md p-2 text-sm text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+                    >
+                        @{{ template.name }}
+                    </li>
+                    <li
+                        v-if="templates.length === 0"
+                        class="p-2 text-sm text-gray-400"
+                    >
+                        @lang('admin::app.mail.index.mail.no-templates')
+                    </li>
+                </ul>
+            </div>
 
             {!! view_render_event('admin.mail.create.form.after') !!}
         </script>
@@ -565,6 +616,12 @@
                         isStoring: false,
         
                         saveAsDraft: 0,
+
+                        showTemplateSelector: false,
+
+                        templateSelectorStyle: {}, // DÙNG ĐỂ CHỨA CSS VỊ TRÍ
+        
+                        templateIconRef: null,
         
                         draft: {
                             id: null,
@@ -575,6 +632,27 @@
                             reply: '',
                             attachments: [],
                         },
+
+                        templates: [
+                            {
+                                id: 1,
+                                name: 'Chúc mừng sinh nhật',
+                                subject: 'Chúc mừng sinh nhật bạn!',
+                                content: '<p>Kính gửi [Tên người nhận],</p><p>Chúng tôi xin gửi lời chúc mừng sinh nhật tốt đẹp nhất đến bạn. Chúc bạn một ngày thật vui vẻ!</p>',
+                            },
+                            {
+                                id: 2,
+                                name: 'Xác nhận cuộc hẹn',
+                                subject: 'Xác nhận cuộc hẹn vào [Ngày]',
+                                content: '<p>Xin chào,</p><p>Chúng tôi xác nhận cuộc hẹn của bạn vào ngày <strong>[Ngày]</strong> lúc <strong>[Giờ]</strong>. Vui lòng phản hồi nếu có bất kỳ thay đổi nào.</p>',
+                            },
+                            {
+                                id: 3,
+                                name: 'Thông báo thanh toán',
+                                subject: 'Thông báo thanh toán thành công',
+                                content: '<p>Xin chúc mừng!</p><p>Giao dịch thanh toán của bạn đã hoàn tất thành công. Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi.</p>',
+                            },
+                        ],
         
                         backgroundColors: [
                             {
@@ -612,13 +690,33 @@
                     if (params.get('openModal')) {
                         this.$refs.toggleComposeModal.toggle();
                     }
+                    // this.loadTemplates();
                 },
         
                 methods: {
                     removeTinyMCE() {
                         tinymce?.remove?.();
                     },
-                    
+
+                    // Thêm phương thức Toggle
+                    toggleTemplateSelector(event) {
+                        this.showTemplateSelector = ! this.showTemplateSelector;
+
+                        if (this.showTemplateSelector) {
+                        // Lấy tọa độ của icon được click
+                        const rect = event.target.getBoundingClientRect();
+                        
+                        // Tính toán vị trí Dropdown: Đặt lên trên icon và căn chỉnh sang trái
+                        this.templateSelectorStyle = {
+                            // Đặt Dropdown lên trên icon (rect.top) trừ đi chiều cao của Dropdown (ví dụ: 250px)
+                            bottom: (window.innerHeight - rect.top) + 10 + 'px', 
+                            
+                            // Căn lề trái của Dropdown với vị trí của Icon
+                            left: rect.left + 'px',
+                        };
+                    }
+                    },
+
                     truncatedReply(reply) {
                         const maxLength = 100;
         
@@ -627,6 +725,25 @@
                         }
         
                         return reply;
+                    },
+
+                    selectTemplate(template) {
+                        // Cập nhật trường subject
+                        this.draft.subject = template.subject;
+
+                        // Cập nhật trường reply (nội dung)
+                        // Lưu ý: Cần truy cập vào instance của TinyMCE để chèn nội dung
+                        const editor = tinymce.get('reply');
+
+                        if (editor) {
+                            // Chèn nội dung vào editor TinyMCE
+                            editor.setContent(template.content);
+                        } else {
+                            // Nếu TinyMCE chưa load (hoặc không tìm thấy), cập nhật biến Vue
+                            this.draft.reply = template.content;
+                        }
+
+                        this.showTemplateSelector = false;
                     },
         
                     toggleModal() {

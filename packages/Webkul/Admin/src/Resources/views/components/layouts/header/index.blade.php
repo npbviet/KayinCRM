@@ -58,7 +58,6 @@
                     @endphp
 
                     <img src="{{ $flags[$locale] ?? $flags['en'] }}" class="w-5 h-5" alt="{{ strtoupper($locale) }}">
-                    <!-- <i class="icon-tasks text-xl"></i> -->
                     {{ strtoupper($locale) }}
                 </button>
             </x-slot>
