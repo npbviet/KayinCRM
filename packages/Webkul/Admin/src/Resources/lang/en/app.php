@@ -511,6 +511,8 @@ return [
                     'view'              => 'View',
                     'name'              => 'Name',
                     'organization-name' => 'Organization Name',
+                    'leads-won'         => 'Leads Won',
+                    'total-deal-value'  => 'Total Deal Value',
                 ],
             ],
             'view' => [

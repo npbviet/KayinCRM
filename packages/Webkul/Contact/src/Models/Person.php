@@ -12,7 +12,7 @@ use Webkul\Activity\Traits\LogsActivity;
 use Webkul\Attribute\Traits\CustomAttribute;
 use Webkul\Contact\Contracts\Person as PersonContract;
 use Webkul\Contact\Database\Factories\PersonFactory;
-use Webkul\Lead\Models\LeadProxy;
+use Webkul\Lead\Models\LeadProxy; // Quan trọng để truy cập Leads
 use Webkul\Tag\Models\TagProxy;
 use Webkul\User\Models\UserProxy;
 
@@ -98,6 +98,47 @@ class Person extends Model implements PersonContract
     {
         return $this->hasMany(LeadProxy::modelClass(), 'person_id');
     }
+
+    //---------------------------------------------------------
+    // BẮT ĐẦU CÁC ACCESSOR MỚI ĐỂ LẤY DỮ LIỆU TỪ LEADS
+    //---------------------------------------------------------
+
+    /**
+     * Get the count of completed leads (won leads) for the person.
+     *
+     * @return int
+     */
+    public function getCompletedLeadsCountAttribute(): int
+    {
+        return $this->leads()
+            ->whereHas('stage', function ($query) {
+                // Giả định Lead Stage code cho 'Thắng' là 'won'
+                $query->where('code', 'won');
+            })
+            ->count();
+    }
+
+    /**
+     * Get the total value of completed leads (won leads) for the person.
+     *
+     * @return string
+     */
+    public function getCompletedLeadsValueAttribute(): string
+    {
+        $total = $this->leads()
+            ->whereHas('stage', function ($query) {
+                // Giả định Lead Stage code cho 'Thắng' là 'won'
+                $query->where('code', 'won');
+            })
+            ->sum('lead_value'); // Giả định cột giá trị trong bảng Leads là 'lead_value'
+        
+        // Trả về giá trị đã định dạng tiền tệ (sử dụng hàm core() của Krayin)
+        return core()->formatBasePrice($total);
+    }
+
+    //---------------------------------------------------------
+    // KẾT THÚC CÁC ACCESSOR MỚI
+    //---------------------------------------------------------
 
     /**
      * Create a new factory instance for the model.

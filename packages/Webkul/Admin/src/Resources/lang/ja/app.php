@@ -511,6 +511,8 @@ return [
                     'view'              => '表示',
                     'name'              => '名前',
                     'organization-name' => '組織名',
+                    'leads-won'         => '成約済みの商談',
+                    'total-deal-value'  => '商談総額',
                 ],
             ],
             'view' => [
